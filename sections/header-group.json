@@ -90,8 +90,8 @@
         "announcement-bar-1": {
           "type": "announcement",
           "settings": {
-            "title": "<h2>FREE LUMINATE CREAM on Orders above 2500</h2>",
-            "title_mobile": "<h2>FREE LUMINATE CREAM on Orders above 2500</h2>",
+            "title": "<h3>Get Trichogain Korean Exosome Hair Serum and receive Trichogain Hair Spray worth Rs. 2,485 absolutely FREE!</h3>",
+            "title_mobile": "<h3>Buy Trichogain Korean Exo Hair Serum and Get Trichogain Hair Spray worth Rs. 2,485 absolutely FREE!</h3>",
             "link": "shopify://collections/all-collections"
           }
         },
@@ -123,8 +123,8 @@
         "enable_sticky_announcement_bar": "never",
         "autoplay_enabled": false,
         "autoplay_delay": 5,
-        "color_background": "#E6259D",
-        "color_text": "#e4f5fc"
+        "color_background": "#E7D572",
+        "color_text": "#000000"
       }
     }
   },

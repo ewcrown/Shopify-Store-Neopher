@@ -15,8 +15,8 @@
         "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banner_web_1600x600_copy_e5a5f7c1-3931-430c-b441-47b313851adb.webp",
-            "image_mobile": "shopify://shop_images/banner_1000x1500_copy.webp",
+            "image": "shopify://shop_images/banner_web_1600x600_copy.webp",
+            "image_mobile": "shopify://shop_images/banner_1000x1500_copy_e61b6cda-dfe9-4109-b4e9-cb9672e035a1.webp",
             "focal_point": "center",
             "mobile_focal_point": "center",
             "media_link": "shopify://collections/all-collections",
@@ -44,10 +44,79 @@
             "color_overlay_gradient": "",
             "overlay_opacity": 0
           }
+        },
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-2": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/banner_web_1600x600_1.jpg",
+            "image_mobile": "shopify://shop_images/banner_1000x1500_1.jpg",
+            "focal_point": "center",
+            "mobile_focal_point": "image_presentation",
+            "media_link": "shopify://collections/all-collections",
+            "text_position": "flex-start_center",
+            "text_position_mobile": "flex-start_center",
+            "accent": "",
+            "title": "",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_tag": "h2",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link_1": "",
+            "link_text_1": "",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#0e2c29",
+            "button_text_color": "#ffffff",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 0
+          }
+        },
+        "8db17277-695b-4789-a564-4b8fcd7c2d90": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/blue-azul-slide_87a7dc0a-bcd9-4924-a594-89bf4561ecbf.jpg",
+            "focal_point": "image_presentation",
+            "mobile_focal_point": "image_presentation",
+            "media_link": "shopify://collections",
+            "text_position": "flex-start_center",
+            "text_position_mobile": "flex-start_center",
+            "accent": "",
+            "title": "Blue Azul",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_tag": "h2",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "<p>Soothing Cleansing Emulsion. Cleanse your way to fresh and hydrating comfort. </p>",
+            "text_font_class": "fs-body-100",
+            "link_1": "shopify://products/luminate-capsules",
+            "link_text_1": "Shop Blue Azul",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#0e2c29",
+            "button_text_color": "#ffffff",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 40
+          }
         }
       },
       "block_order": [
-        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-1"
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-1",
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-2",
+        "8db17277-695b-4789-a564-4b8fcd7c2d90"
       ],
       "settings": {
         "image_aspect": "original",
@@ -163,7 +232,7 @@
         "category_block_PwUkgA": {
           "type": "category_block",
           "settings": {
-            "image": "shopify://shop_images/sun_protection_1100x1400_1__jpg.webp",
+            "image": "shopify://shop_images/sun_protection_1100x1400_1__jpg.jpg",
             "heading": "Sun Protection",
             "link": "shopify://collections/sun-protection",
             "text_color": "#ffffff",
@@ -173,7 +242,7 @@
         "category_block_jbyaBY": {
           "type": "category_block",
           "settings": {
-            "image": "shopify://shop_images/moisturized_skin_1100x586_jpg.webp",
+            "image": "shopify://shop_images/moisturized_skin_1100x586_jpg.jpg",
             "heading": "Moisturizers",
             "link": "shopify://collections/moisturizer",
             "text_color": "#ffffff",
@@ -183,7 +252,7 @@
         "category_block_PgDi7B": {
           "type": "category_block",
           "settings": {
-            "image": "shopify://shop_images/skin_brightening_1100x586_d4e71c0a-090e-4490-8a4f-f4bd41e74dbf.webp",
+            "image": "shopify://shop_images/skin_brightening_1100x586_d4e71c0a-090e-4490-8a4f-f4bd41e74dbf.jpg",
             "heading": "Skin Brightening",
             "link": "shopify://collections/skin-brightening-lightening",
             "text_color": "#ffffff",
@@ -366,6 +435,13 @@
             "badge_text": ""
           }
         },
+        "video_product_rKgJU4": {
+          "type": "video_product",
+          "settings": {
+            "product": "",
+            "badge_text": ""
+          }
+        },
         "video_product_eBDJhc": {
           "type": "video_product",
           "settings": {
@@ -416,6 +492,7 @@
         "video_product_6pMhQK",
         "video_product_hr73ki",
         "video_product_B9rDrc",
+        "video_product_rKgJU4",
         "video_product_eBDJhc",
         "video_product_A3mTd6",
         "video_product_yELLhJ",
@@ -508,8 +585,8 @@
         "controls": false,
         "overlay_opacity": 20,
         "full_width": true,
-        "video_height_desktop": 36,
-        "video_height_mobile": 100,
+        "video_height_desktop": 56,
+        "video_height_mobile": 132,
         "section_bg_color": "#ffffff",
         "heading": "",
         "heading_size": "h1",

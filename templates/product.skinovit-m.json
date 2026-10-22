@@ -130,7 +130,7 @@
             "icon_3": "chat",
             "text_3": "",
             "icon_4": "moving-truck",
-            "text_4": "<p>Free shipping on orders over 1000</p>",
+            "text_4": "<p>Free shipping on orders over 2000</p>",
             "icon_5": "padlock",
             "text_5": "<p>Pay Advance or COD</p>",
             "icon_6": "chat",
@@ -205,7 +205,7 @@
             "heading": "{{ product.metafields.custom.accordion_heading_three.value }}",
             "heading_tag": "h3",
             "icon": "none",
-            "content": "<p>{{ product.metafields.custom.accordion_content_three | metafield_tag }}</p>",
+            "content": "{{ product.metafields.custom.accordion_content_three | metafield_tag }}",
             "page_for_content": "",
             "custom_liquid": ""
           }

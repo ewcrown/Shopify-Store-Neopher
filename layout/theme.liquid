@@ -64,8 +64,7 @@
     {%- endcapture -%}
     <title>{{ seo_title | strip }}</title>
 
-        
-    <link
+     <link
       rel="preload"
       href="{{ 'custom.min.css' | asset_url }}"
       as="style"
@@ -90,13 +89,11 @@
     {% render 'theme-setting-vars' %}
     {%- render 'theme-globals' -%}
 
-
-
     {{ content_for_header }}
 
   </head>
 
-<body class="template-{{ request.page_type | handle }}">
+  <body class="template-{{ request.page_type | handle }}">
     <div class="page">
       {% if settings.enable_page_transitions %}
         {% render 'page-transition-overlay' %}
@@ -169,5 +166,4 @@
   }
 </script>
   </body>
-
 </html>
