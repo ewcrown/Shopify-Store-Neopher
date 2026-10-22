@@ -1,0 +1,894 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product--default",
+      "blocks": {
+        "product_header": {
+          "type": "product_header",
+          "settings": {
+            "show_divider": true,
+            "show_vendor": true,
+            "show_sku": true,
+            "show_discount": true,
+            "discount_format": "percent_off",
+            "show_product_rating": false,
+            "show_sale_badge": true,
+            "show_custom_badges": true
+          }
+        },
+        "product_callouts_mini": {
+          "type": "product_callouts_mini",
+          "disabled": true,
+          "settings": {
+            "icon_1": "moving-truck",
+            "text_1": "Fast Shipping",
+            "icon_2": "padlock",
+            "text_2": "Secure payment",
+            "icon_3": "chat",
+            "text_3": "",
+            "icon_4": "none",
+            "text_4": "",
+            "icon_5": "none",
+            "text_5": "",
+            "icon_6": "none",
+            "text_6": ""
+          }
+        },
+        "product_callouts-1": {
+          "type": "product_callouts",
+          "settings": {
+            "title": "",
+            "title_tag": "h3",
+            "add_box": false,
+            "add_dividers": true,
+            "icon_1": "none",
+            "text_1": "{{ product.metafields.custom.skin_type | metafield_tag }}",
+            "icon_2": "none",
+            "text_2": "",
+            "icon_3": "none",
+            "text_3": "",
+            "icon_4": "none",
+            "text_4": "",
+            "icon_5": "none",
+            "text_5": "",
+            "icon_6": "none",
+            "text_6": "",
+            "display_as_collapsible_row": false,
+            "expand_by_default": false,
+            "icon": "none"
+          }
+        },
+        "highlight_grid_2x2_EYCfcR": {
+          "type": "highlight_grid_2x2",
+          "settings": {
+            "text_1": "{{ product.metafields.custom.feature_one.value }}",
+            "icon_1": "shopify://shop_images/star-06.svg",
+            "text_2": "{{ product.metafields.custom.feature_two.value }}",
+            "icon_2": "shopify://shop_images/star-06.svg",
+            "text_3": "{{ product.metafields.custom.feature_three.value }}",
+            "icon_3": "shopify://shop_images/star-06.svg",
+            "text_4": "{{ product.metafields.custom.feature_four.value }}",
+            "icon_4": "shopify://shop_images/star-06.svg"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_popup_option": "Size",
+            "variant_popup_icon": "measuring-tape",
+            "variant_popup_text": "Size guide",
+            "variant_popup_page": "",
+            "swatch_size": "medium",
+            "chip_layout": "3col"
+          }
+        },
+        "inventory_counter": {
+          "type": "inventory-counter",
+          "settings": {
+            "label": "Availability",
+            "inventory_max": "100",
+            "low_inventory_threshold": "40",
+            "show_status_bar": true,
+            "show_untracked_quantity": false
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+            "show_labels": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "enable_sticky_atc_bar_desktop": true,
+            "enable_sticky_atc_bar_mobile": true,
+            "divider_width": "none"
+          }
+        },
+        "product_callouts-2": {
+          "type": "product_callouts",
+          "settings": {
+            "title": "",
+            "title_tag": "h3",
+            "add_box": true,
+            "add_dividers": true,
+            "icon_1": "measuring-tape",
+            "text_1": "",
+            "icon_2": "cotton",
+            "text_2": "",
+            "icon_3": "chat",
+            "text_3": "",
+            "icon_4": "moving-truck",
+            "text_4": "<p>Free shipping on orders over 2000</p>",
+            "icon_5": "padlock",
+            "text_5": "<p>Pay Advance or COD</p>",
+            "icon_6": "chat",
+            "text_6": "<p>Need Help? <a href=\"/pages/contact-us\" title=\"Contact us\">Contact Us</a></p>",
+            "display_as_collapsible_row": false,
+            "expand_by_default": false,
+            "icon": "none"
+          }
+        },
+        "share": {
+          "type": "share",
+          "disabled": true,
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "title": "Description",
+            "title_tag": "h3",
+            "text_font_class": "fs-body-100",
+            "column_placement": "left",
+            "display_as_collapsible_row": true,
+            "expand_by_default": true,
+            "icon": "none"
+          }
+        },
+        "accordion-1": {
+          "type": "accordion",
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "{{ product.metafields.custom.product_description_heading.value }}",
+            "heading_tag": "h3",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.product_description_content | metafield_tag }}",
+            "page_for_content": "",
+            "custom_liquid": ""
+          }
+        },
+        "accordion-2": {
+          "type": "accordion",
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "{{ product.metafields.custom.accordion_heading_one.value }}",
+            "heading_tag": "h3",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.accordion_content_one | metafield_tag }}",
+            "page_for_content": "",
+            "custom_liquid": ""
+          }
+        },
+        "accordion-3": {
+          "type": "accordion",
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "{{ product.metafields.custom.accordion_heading_two.value }}",
+            "heading_tag": "h3",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.accordion_content_two | metafield_tag }}",
+            "page_for_content": "",
+            "custom_liquid": ""
+          }
+        },
+        "6d34ba2c-8f49-40ce-a1a6-6534e5f29d1e": {
+          "type": "accordion",
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "{{ product.metafields.custom.accordion_heading_three.value }}",
+            "heading_tag": "h3",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.accordion_content_three | metafield_tag }}",
+            "page_for_content": "",
+            "custom_liquid": ""
+          }
+        },
+        "accordion_qkxAHe": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "{{ product.metafields.custom.accordion_heading_four.value }}",
+            "heading_tag": "h3",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.accordion_content_four | metafield_tag }}",
+            "page_for_content": "",
+            "custom_liquid": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_header",
+        "product_callouts_mini",
+        "product_callouts-1",
+        "highlight_grid_2x2_EYCfcR",
+        "variant_picker",
+        "inventory_counter",
+        "quantity_selector",
+        "buy_buttons",
+        "product_callouts-2",
+        "share",
+        "description",
+        "accordion-1",
+        "accordion-2",
+        "accordion-3",
+        "6d34ba2c-8f49-40ce-a1a6-6534e5f29d1e",
+        "accordion_qkxAHe"
+      ],
+      "settings": {
+        "color_background": "#e6f7fd",
+        "enable_sticky_product_details": true,
+        "show_breadcrumbs": false,
+        "show_navigation_buttons": false,
+        "auto_collapse_rows": false,
+        "show_featured_media_first": false,
+        "gallery_style": "thumbnails",
+        "gallery_style_mobile": "carousel",
+        "gallery_size": "small",
+        "gallery_overflow": "3",
+        "enable_video_looping": true,
+        "enable_product_lightbox": true,
+        "image_aspect_ratio": "square",
+        "enable_multiple_variant_media": false,
+        "enable_mobile_carousel_looping": false,
+        "show_mobile_carousel_images_full_width": false,
+        "hide_mobile_carousel_dots": false,
+        "enable_gift_card_recipient": true,
+        "enable_animation": true
+      }
+    },
+    "multi-column": {
+      "type": "multi-column",
+      "blocks": {
+        "block-0": {
+          "type": "column",
+          "settings": {
+            "accent": "",
+            "heading": "Column",
+            "heading_tag": "h3",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>Use text to focus on your chosen product, collection, or blog post.</p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "block-1": {
+          "type": "column",
+          "settings": {
+            "accent": "",
+            "heading": "Column",
+            "heading_tag": "h3",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>Use text to focus on your chosen product, collection, or blog post.</p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "block-2": {
+          "type": "column",
+          "settings": {
+            "accent": "",
+            "heading": "Column",
+            "heading_tag": "h3",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>Use text to focus on your chosen product, collection, or blog post.</p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "heading_tag": "h2",
+        "heading_font_class": "fs-heading-3-base",
+        "subheading": "<p>Use a multi-column section to organize detailed information about your products:</p>",
+        "heading_alignment": "center",
+        "content_vertical_alignment": "top",
+        "content_background_padding": "large",
+        "columns": "3",
+        "column_spacing": 4,
+        "row_spacing": 8,
+        "column_alignment": "left",
+        "enable_slider_mobile": false,
+        "columns_mobile": "1",
+        "column_spacing_mobile": 20,
+        "row_spacing_mobile": 8,
+        "column_alignment_mobile": "left",
+        "background_behind_columns": true,
+        "background_color": "#f4f4f4",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "image-hero": {
+      "type": "image-hero",
+      "blocks": {
+        "block-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "Accent"
+          }
+        },
+        "block-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Image hero",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-2"
+          }
+        },
+        "block-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use these sections to promote a particular feature with editorial photography.</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 70,
+        "mobile_height": 70,
+        "focal_point": "image_presentation",
+        "mobile_focal_point": "image_presentation",
+        "media_link": "",
+        "text_position": "center_center",
+        "text_position_mobile": "center_center",
+        "text_color": "#ffffff",
+        "button_background_color": "#ffffff",
+        "button_text_color": "#000000",
+        "color_overlay": "#000000",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 40,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "image-with-text-1": {
+      "type": "image-with-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Image with text",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-3"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use these sections to promote a particular feature with editorial photography</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_position": "right",
+        "aspect_ratio": "square",
+        "focal_point": "image_presentation",
+        "image_caption": "Optional image caption",
+        "text_alignment": "left",
+        "show_small_image": true,
+        "image_small_aspect": "square",
+        "image_small_focal_point": "center",
+        "background_color": "",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "image-with-text-2": {
+      "type": "image-with-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Image with text",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-3"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use these sections to promote a particular feature with editorial photography</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_position": "left",
+        "aspect_ratio": "square",
+        "focal_point": "image_presentation",
+        "image_caption": "Optional image caption",
+        "text_alignment": "left",
+        "show_small_image": true,
+        "image_small_aspect": "square",
+        "image_small_focal_point": "center",
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "block-0": {
+          "type": "testimonial",
+          "settings": {
+            "product": "",
+            "image_position": "right",
+            "aspect_ratio": "square",
+            "focal_point": "image_presentation",
+            "show_rating": true,
+            "rating": 5,
+            "quote": "\"Add customer reviews and testimonials to showcase your store’s happy customers.\"",
+            "author": "– Author's name"
+          }
+        },
+        "block-1": {
+          "type": "testimonial",
+          "settings": {
+            "product": "",
+            "image_position": "left",
+            "aspect_ratio": "square",
+            "focal_point": "image_presentation",
+            "show_rating": true,
+            "rating": 5,
+            "quote": "\"Add customer reviews and testimonials to showcase your store’s happy customers.\"",
+            "author": "– Author's name"
+          }
+        },
+        "block-2": {
+          "type": "testimonial",
+          "settings": {
+            "product": "",
+            "image_position": "right",
+            "aspect_ratio": "square",
+            "focal_point": "image_presentation",
+            "show_rating": true,
+            "rating": 5,
+            "quote": "\"Add customer reviews and testimonials to showcase your store’s happy customers.\"",
+            "author": "– Author's name"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_size": "large",
+        "quote_font": "body",
+        "background_color": "#f9f9f9",
+        "text_color": "#000000",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "step_by_step_routine_GLNdXd": {
+      "type": "step-by-step-routine",
+      "blocks": {
+        "step_NgMYXF": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/cleansers_jpg.jpg",
+            "title": "Cleanse",
+            "text": "",
+            "link": "shopify://collections/cleansers"
+          }
+        },
+        "step_JCQk6T": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/serums_jpg.jpg",
+            "title": "Nourish",
+            "text": "",
+            "link": "shopify://collections/serums-1"
+          }
+        },
+        "step_aq3LeU": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/creams_jpg.jpg",
+            "title": "Correct",
+            "text": "",
+            "link": "shopify://collections/cream-tablet"
+          }
+        },
+        "step_9PPD3h": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/moisturizer_jpg.jpg",
+            "title": "Moisturize",
+            "text": "",
+            "link": "shopify://collections/moisturizer"
+          }
+        },
+        "step_7RhdYf": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/sun_screen_jpg.jpg",
+            "title": "Protect",
+            "text": "",
+            "link": "shopify://collections/sun-protection"
+          }
+        }
+      },
+      "block_order": [
+        "step_NgMYXF",
+        "step_JCQk6T",
+        "step_aq3LeU",
+        "step_9PPD3h",
+        "step_7RhdYf"
+      ],
+      "name": "Step-by-step Routine",
+      "settings": {
+        "heading": "Step By Step Skincare Routine",
+        "heading_tag": "h2",
+        "link_text": "View all",
+        "link_url": "",
+        "background_color": "#ffffff",
+        "heading_color": "#2e332a",
+        "text_color": "#2e332a",
+        "card_gap": 20
+      }
+    },
+    "image_compare_b7knrH": {
+      "type": "image-compare",
+      "name": "t:sections.image_compare.presets.name",
+      "settings": {
+        "image_position": "below",
+        "aspect_ratio": "landscape",
+        "reveal_direction": "horizontal",
+        "image_max_width": 1400,
+        "slider_color": "#000000",
+        "slider_arrows_color": "#ffffff",
+        "text_alignment": "center",
+        "heading": "Image compare",
+        "heading_tag": "h2",
+        "heading_font_class": "fs-heading-3-base",
+        "subheading": "<p>Use this section to highlight differences between two like images.</p>",
+        "link": "",
+        "link_text": "",
+        "button_style": "btn--secondary",
+        "show_labels": true,
+        "before_text": "Before",
+        "before_text_position": "flex-start_flex-start",
+        "before_text_color": "#000000",
+        "before_text_container_color": "#ffffff",
+        "after_text": "After",
+        "after_text_position": "flex-end_flex-end",
+        "after_text_color": "#000000",
+        "after_text_container_color": "#ffffff",
+        "filter_effect": "none",
+        "filter_amount": 100,
+        "color_overlay": "#000000",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 0,
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "recommendations": {
+      "type": "recommended-products",
+      "settings": {
+        "color_background": "#ffffff",
+        "title": "Recommended Products",
+        "heading_tag": "h2",
+        "subheading": "",
+        "maximum_products": 8,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "recently_viewed_products_TeNpzQ": {
+      "type": "recently-viewed-products",
+      "name": "t:sections.recently_viewed_products.presets.name",
+      "settings": {
+        "color_background": "#e6f7fd",
+        "title": "Recently viewed",
+        "heading_tag": "h2",
+        "subheading": "",
+        "maximum_products": 8,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How can I place an order?",
+            "text": "<p>Once you have added the desired items to your cart, follow the instructions:</p>"
+          }
+        },
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Can I open the parcel/order at the time of delivery?",
+            "text": "<p>Customers cannot open up the parcel/order before cash is given to the dispatch team. In case of damage/defect customer should let us know via helpline +92-333-042-4231</p>"
+          }
+        },
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Do shipping charges vary with the weight of the order?",
+            "text": "<p>As per courier arrangements, the cost of shipping does not increase with the weight of the order</p>"
+          }
+        },
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-4": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How many times will the courier agent attempt to deliver my order in case I am unavailable to receive it?",
+            "text": "<p>Our delivery agents make two attempts to deliver a parcel. Kindly ensure that the mobile number and shipping address are mentioned clearly while placing an order. On the second failed attempt, the item will be returned to us.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-1",
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-2",
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-3",
+        "template--15822884470989__93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb-item-4"
+      ],
+      "settings": {
+        "color_background": "#e6f7fd",
+        "title": "FAQs",
+        "heading_tag": "h2",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "subheading": "",
+        "subheading_tag": "h3",
+        "subheading_font_class": "fs-heading-5-base",
+        "item_heading_font": "heading",
+        "auto_collapse_rows": false,
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "1699271391d8c9c86c": {
+      "type": "apps",
+      "blocks": {
+        "a2c52f16-6a17-4f46-9d77-c4248096e7f3": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-card-carousel-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "disabled": true,
+          "settings": {
+            "maxWidth": 1100,
+            "borderRadius": 8,
+            "itemsPerView": 4,
+            "mobileItemsPerView": 1,
+            "maxNumberOfCharacters": 100,
+            "imageRatio": "1.25",
+            "reviewerNameColor": "#000000",
+            "textColor": "#000000",
+            "itemBackgroundColor": "#ffffff",
+            "starsColor": "",
+            "starsBackgroundColor": "#ffffff",
+            "arrows_backgroundColor": "#ffffff",
+            "arrows_iconColor": "#9a9a9a",
+            "shadow": "offset-dark",
+            "border_active": false,
+            "border_width": 2,
+            "border_color": "#000000",
+            "productIds": "{{ product.metafields.custom.product_review.value }}"
+          }
+        },
+        "74e1592e-3869-46ba-9507-ba811b3e0f65": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": false,
+            "aggregated": false,
+            "limit": 20,
+            "hide_thumbnails": false,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "a2c52f16-6a17-4f46-9d77-c4248096e7f3",
+        "74e1592e-3869-46ba-9507-ba811b3e0f65"
+      ],
+      "settings": {
+        "heading": "Product Reviews ",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "reels_video_HchpzR": {
+      "type": "reels-video",
+      "blocks": {
+        "video_product_y3Tzd8": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/SnapInsta.to_AQOw5wHiTjVlBzht7IStbM1CUuL9IHf8CS7F09Mu-XWavxSScfBnfWLj5XhBp_HKN24NoABCW86uwB67GKvgM-awXC3giNeNF_y39dc.mp4",
+            "product": "neobrella-sc-sebum-control-gel-with-maximum-sun-protection-spf-40-and-pa",
+            "badge_text": ""
+          }
+        },
+        "video_product_pd7KVq": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/SnapInsta.to_AQOl4lOYMF9cxPfHdwYBrwDl54lbkGaCNXB0vTSzDhIxo9efKElAvur-oVKP-27Lln0cjbWglyLdoyRG9rRymiGrMO1A6G2ZyjIet3U.mp4",
+            "product": "neoretin-retinol-2-5-facial-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_cxWBPJ": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/All-year glow squad- Neoretin Retinol Serum + Hydrobase Serum. The best combo if you’re ready fo.mp4",
+            "product": "neoretin-retinol-2-5-facial-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_EeGVpM": {
+          "type": "video_product",
+          "settings": {
+            "product": "",
+            "badge_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_product_y3Tzd8",
+        "video_product_pd7KVq",
+        "video_product_cxWBPJ",
+        "video_product_EeGVpM"
+      ],
+      "disabled": true,
+      "name": "Reels Video",
+      "settings": {
+        "heading": "Shop the Look",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "subheading": "",
+        "background_color": "#ffffff",
+        "card_background_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 15,
+        "title_color": "#222222",
+        "price_color": "#e91e63",
+        "video_height_desktop": 450,
+        "video_height_mobile": 350,
+        "card_border_radius": 10,
+        "show_sound_toggle": true,
+        "slides_per_view_desktop": "4",
+        "slides_per_view_tablet": "2",
+        "slides_per_view_mobile": "1",
+        "space_between": 12,
+        "enable_loop": true,
+        "enable_autoplay": true,
+        "continuous_scroll": false,
+        "autoplay_speed": 4000,
+        "slide_speed": 600,
+        "pause_on_hover": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "show_product_info": true,
+        "show_product_image": true,
+        "show_price": true,
+        "show_atc_button": true,
+        "button_label": "",
+        "button_style": "btn--primary",
+        "button_background": "#222222",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "multi-column",
+    "image-hero",
+    "image-with-text-1",
+    "image-with-text-2",
+    "testimonials",
+    "step_by_step_routine_GLNdXd",
+    "image_compare_b7knrH",
+    "recommendations",
+    "recently_viewed_products_TeNpzQ",
+    "93a9fd74-5e7e-4c6a-93f4-0acc24fce0bb",
+    "1699271391d8c9c86c",
+    "reels_video_HchpzR"
+  ]
+}

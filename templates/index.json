@@ -1,0 +1,617 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "c0b282af-5cb1-4986-af88-5363756aff46": {
+      "type": "slideshow",
+      "blocks": {
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banner_web_1600x600_copy.webp",
+            "image_mobile": "shopify://shop_images/banner_1000x1500_copy_e61b6cda-dfe9-4109-b4e9-cb9672e035a1.webp",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "media_link": "shopify://collections/all-collections",
+            "text_position": "flex-start_center",
+            "text_position_mobile": "flex-start_center",
+            "accent": "",
+            "title": "",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_tag": "h2",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link_1": "shopify://collections/all",
+            "link_text_1": "",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#0e2c29",
+            "button_text_color": "#ffffff",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 0
+          }
+        },
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-2": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/banner_web_1600x600_1.jpg",
+            "image_mobile": "shopify://shop_images/banner_1000x1500_1.jpg",
+            "focal_point": "center",
+            "mobile_focal_point": "image_presentation",
+            "media_link": "shopify://collections/all-collections",
+            "text_position": "flex-start_center",
+            "text_position_mobile": "flex-start_center",
+            "accent": "",
+            "title": "",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_tag": "h2",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link_1": "",
+            "link_text_1": "",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#0e2c29",
+            "button_text_color": "#ffffff",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 0
+          }
+        },
+        "8db17277-695b-4789-a564-4b8fcd7c2d90": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/blue-azul-slide_87a7dc0a-bcd9-4924-a594-89bf4561ecbf.jpg",
+            "focal_point": "image_presentation",
+            "mobile_focal_point": "image_presentation",
+            "media_link": "shopify://collections",
+            "text_position": "flex-start_center",
+            "text_position_mobile": "flex-start_center",
+            "accent": "",
+            "title": "Blue Azul",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_tag": "h2",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "<p>Soothing Cleansing Emulsion. Cleanse your way to fresh and hydrating comfort. </p>",
+            "text_font_class": "fs-body-100",
+            "link_1": "shopify://products/luminate-capsules",
+            "link_text_1": "Shop Blue Azul",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#0e2c29",
+            "button_text_color": "#ffffff",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 40
+          }
+        }
+      },
+      "block_order": [
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-1",
+        "template--15817713451213__c0b282af-5cb1-4986-af88-5363756aff46-slide-2",
+        "8db17277-695b-4789-a564-4b8fcd7c2d90"
+      ],
+      "settings": {
+        "image_aspect": "original",
+        "desktop_height": 100,
+        "mobile_height": 100,
+        "enable_autoplay": true,
+        "duration_autoplay": 6,
+        "navigation_alignment": "center",
+        "navigation_color_foreground": "#ffffff",
+        "navigation_color_background": "",
+        "navigation_background_opacity": 0,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "scrolling_content_zDBGJx": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_xz3BKr": {
+          "type": "text",
+          "settings": {
+            "text": "BUY MORE SAVE MORE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_xz3BKr"
+      ],
+      "name": "t:sections.scrolling_content.presets.name",
+      "settings": {
+        "font_choice": "ff-heading",
+        "text_font_class": "fs-body-100",
+        "duration": 10,
+        "direction": "normal",
+        "gap": 50,
+        "padding_top": 5,
+        "padding_bottom": 5,
+        "borders": "top-bottom",
+        "background_color": "#e6f7fd",
+        "text_color": "#4e6ac7",
+        "border_color": "#2e332a",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "16549177944ec2347e": {
+      "type": "rich-text",
+      "blocks": {
+        "1654917794cdc0bc3c-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Hi, we’re Neophar Skin Sciences 🩵",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-2-base"
+          }
+        },
+        "1654917794cdc0bc3c-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We develop premium quality dermo-cosmetic products, made with patented ingredients, sourced from the best suppliers around the world.</p>",
+            "text_font_class": "fs-body-75"
+          }
+        }
+      },
+      "block_order": [
+        "1654917794cdc0bc3c-0",
+        "1654917794cdc0bc3c-1"
+      ],
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 650
+      }
+    },
+    "featured_collection_grid_WnbEVJ": {
+      "type": "featured-collection-grid",
+      "blocks": {
+        "collection_jPmRkp": {
+          "type": "collection",
+          "settings": {
+            "collection": "trending-products"
+          }
+        }
+      },
+      "block_order": [
+        "collection_jPmRkp"
+      ],
+      "name": "t:sections.featured_collection_grid.presets.name",
+      "settings": {
+        "heading": "BEST SELLERS",
+        "color_background": "#e6f7fd",
+        "heading_tag": "h2",
+        "subheading": "",
+        "link": "",
+        "link_text": "",
+        "button_style": "btn--callout",
+        "maximum_products": 8,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "custom_category_4dkDCx": {
+      "type": "custom-category",
+      "blocks": {
+        "category_block_PwUkgA": {
+          "type": "category_block",
+          "settings": {
+            "image": "shopify://shop_images/sun_protection_1100x1400_1__jpg.jpg",
+            "heading": "Sun Protection",
+            "link": "shopify://collections/sun-protection",
+            "text_color": "#ffffff",
+            "overlay_opacity": 10
+          }
+        },
+        "category_block_jbyaBY": {
+          "type": "category_block",
+          "settings": {
+            "image": "shopify://shop_images/moisturized_skin_1100x586_jpg.jpg",
+            "heading": "Moisturizers",
+            "link": "shopify://collections/moisturizer",
+            "text_color": "#ffffff",
+            "overlay_opacity": 10
+          }
+        },
+        "category_block_PgDi7B": {
+          "type": "category_block",
+          "settings": {
+            "image": "shopify://shop_images/skin_brightening_1100x586_d4e71c0a-090e-4490-8a4f-f4bd41e74dbf.jpg",
+            "heading": "Skin Brightening",
+            "link": "shopify://collections/skin-brightening-lightening",
+            "text_color": "#ffffff",
+            "overlay_opacity": 10
+          }
+        }
+      },
+      "block_order": [
+        "category_block_PwUkgA",
+        "category_block_jbyaBY",
+        "category_block_PgDi7B"
+      ],
+      "name": "Category Grid (3 Items)",
+      "settings": {
+        "title": "SHOP BY CATEGORY",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_color": "#2e332a",
+        "heading_margin_bottom": 48,
+        "grid_gap": 30,
+        "image_corner_radius": 4,
+        "section_bg_color": "rgba(0,0,0,0)",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_slider_EpMWkj": {
+      "type": "featured-collection-slider",
+      "blocks": {
+        "collection_mTqecC": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-launch",
+            "collection_name": "New Launch",
+            "show_view_all": true
+          }
+        },
+        "collection_rn9rn6": {
+          "type": "collection",
+          "settings": {
+            "collection": "skin-brightening",
+            "collection_name": "Skin Brightening",
+            "show_view_all": true
+          }
+        },
+        "collection_PQkA9t": {
+          "type": "collection",
+          "settings": {
+            "collection": "cleansers",
+            "collection_name": "Cleansers",
+            "show_view_all": true
+          }
+        },
+        "collection_rCtzaq": {
+          "type": "collection",
+          "settings": {
+            "collection": "anti-ageing",
+            "collection_name": "Anti Ageing",
+            "show_view_all": true
+          }
+        },
+        "collection_WD8Dyz": {
+          "type": "collection",
+          "settings": {
+            "collection": "creams",
+            "collection_name": "Creams",
+            "show_view_all": true
+          }
+        },
+        "collection_xFwJTm": {
+          "type": "collection",
+          "settings": {
+            "collection": "moisturizer",
+            "collection_name": "Moisturizers",
+            "show_view_all": true
+          }
+        },
+        "collection_YHJXbr": {
+          "type": "collection",
+          "settings": {
+            "collection": "sun-protection",
+            "collection_name": "Sun Protection",
+            "show_view_all": true
+          }
+        },
+        "collection_4jqrdJ": {
+          "type": "collection",
+          "settings": {
+            "collection": "bundles",
+            "collection_name": "Bundles",
+            "show_view_all": true
+          }
+        }
+      },
+      "block_order": [
+        "collection_mTqecC",
+        "collection_rn9rn6",
+        "collection_PQkA9t",
+        "collection_rCtzaq",
+        "collection_WD8Dyz",
+        "collection_xFwJTm",
+        "collection_YHJXbr",
+        "collection_4jqrdJ"
+      ],
+      "name": "t:sections.featured_collection_slider.presets.name",
+      "settings": {
+        "heading": "More To Explore",
+        "color_background": "#e6f7fd",
+        "heading_tag": "h2",
+        "header_alignment": "c",
+        "subheading": "",
+        "link": "",
+        "link_text": "",
+        "button_style": "btn--callout",
+        "collection_tabs_mobile_display": "rows",
+        "maximum_products": 8,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "reels_video_r33MQT": {
+      "type": "reels-video",
+      "blocks": {
+        "video_product_zfDAKx": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/SnapInsta.to_AQOw5wHiTjVlBzht7IStbM1CUuL9IHf8CS7F09Mu-XWavxSScfBnfWLj5XhBp_HKN24NoABCW86uwB67GKvgM-awXC3giNeNF_y39dc.mp4",
+            "product": "neobrella-sc-sebum-control-gel-with-maximum-sun-protection-spf-40-and-pa",
+            "badge_text": ""
+          }
+        },
+        "video_product_i74zPh": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/SnapInsta.to_AQOl4lOYMF9cxPfHdwYBrwDl54lbkGaCNXB0vTSzDhIxo9efKElAvur-oVKP-27Lln0cjbWglyLdoyRG9rRymiGrMO1A6G2ZyjIet3U.mp4",
+            "product": "neoretin-retinol-2-5-facial-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_BX94bD": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/All-year glow squad- Neoretin Retinol Serum + Hydrobase Serum. The best combo if you’re ready fo.mp4",
+            "product": "neoretin-retinol-2-5-facial-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_iAz788": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/SnapInsta.to_AQP-3ZBD2Ua-FBZUNjnMaheBZVjB1ExdZ3qHugVDThuJN2o-nEJ8UJLgvNVwk2ih90GLcFT5ecvfmK8uGrwSL9WH8z__75AB60A7500.mp4",
+            "product": "neobrella-spf-60-sunblock-cream",
+            "badge_text": ""
+          }
+        },
+        "video_product_6pMhQK": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/Hydration ✅ Repair ✅ Brightening ✅ Barrier care ✅All in one bottle — Hydrobase Serum, your short.mp4",
+            "product": "hydrobase-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_hr73ki": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/shaina short video.mp4",
+            "product": "neoretin-retinol-2-5-facial-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_B9rDrc": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/Nazeeha Hydrobase serum.MP4",
+            "product": "hydrobase-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_rKgJU4": {
+          "type": "video_product",
+          "settings": {
+            "product": "",
+            "badge_text": ""
+          }
+        },
+        "video_product_eBDJhc": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/Younger than ever, smoother than ever — it’s the Neoretin effect 💜Trust Neoretin Retinol Serum .mp4",
+            "product": "neoretin-retinol-2-5-facial-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_A3mTd6": {
+          "type": "video_product",
+          "disabled": true,
+          "settings": {
+            "product_video": "shopify://files/videos/Nothing in life u get free 💗💗 It is all about how much efforts u put in 💗💗Keep ur hydration .mp4",
+            "product": "hydrobase-oil-free-lotion",
+            "badge_text": ""
+          }
+        },
+        "video_product_yELLhJ": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/Hydration + radiance in one routine ✨Unboxing my new Hydrobase Serum + Ascorbiderm Serum, and ho.mp4",
+            "product": "ascorbiderm-vitamin-c-facial-serum-20",
+            "badge_text": ""
+          }
+        },
+        "video_product_JyGeXA": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/SnapInsta.to_AQM2UW-YBT1xYKAcLKZGY5LEsycUq1I--MxUUbxu1OW8BSstfs6M0if3cEXCvUUHbTIvYcyUNGGIBgrp4-bBudyvN9CzJfLv6jeqP5c.mp4",
+            "product": "hydrobase-serum",
+            "badge_text": ""
+          }
+        },
+        "video_product_rgML43": {
+          "type": "video_product",
+          "settings": {
+            "product_video": "shopify://files/videos/Revaglow is probably the best night cream formula for dark spots, uneven & dull skin 🤍Order now.mp4",
+            "product": "revaglow-night-cream",
+            "badge_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_product_zfDAKx",
+        "video_product_i74zPh",
+        "video_product_BX94bD",
+        "video_product_iAz788",
+        "video_product_6pMhQK",
+        "video_product_hr73ki",
+        "video_product_B9rDrc",
+        "video_product_rKgJU4",
+        "video_product_eBDJhc",
+        "video_product_A3mTd6",
+        "video_product_yELLhJ",
+        "video_product_JyGeXA",
+        "video_product_rgML43"
+      ],
+      "name": "Reels Video",
+      "settings": {
+        "heading": "Visual to Vogue",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "subheading": "",
+        "background_color": "#ffffff",
+        "card_background_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 15,
+        "title_color": "#2e332a",
+        "price_color": "#a0522d",
+        "video_height_desktop": 370,
+        "video_height_mobile": 330,
+        "card_border_radius": 0,
+        "show_sound_toggle": true,
+        "slides_per_view_desktop": "5",
+        "slides_per_view_tablet": "2",
+        "slides_per_view_mobile": "2",
+        "space_between": 8,
+        "enable_loop": false,
+        "enable_autoplay": true,
+        "continuous_scroll": false,
+        "autoplay_speed": 4000,
+        "slide_speed": 600,
+        "pause_on_hover": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "show_product_info": true,
+        "show_product_image": true,
+        "show_price": true,
+        "show_atc_button": false,
+        "button_label": "",
+        "button_style": "btn--primary",
+        "button_background": "#222222",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "rich_text_LpQTyD": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_KQVxGV": {
+          "type": "heading",
+          "settings": {
+            "title": "About Us",
+            "heading_tag": "h2",
+            "heading_font_class": "fs-heading-2-base"
+          }
+        },
+        "text_kY7pQh": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Backed by a modern manufacturing facility, Neophar Skin Sciences delivers skincare rooted in science and quality.Our strict manufacturing protocols ensure products that dermatologists and patients can trust.</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "heading_KQVxGV",
+        "text_kY7pQh"
+      ],
+      "name": "t:sections.rich_text.presets.name",
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 650
+      }
+    },
+    "dynamic_video_Cm9XMz": {
+      "type": "dynamic-video",
+      "name": "Dynamic Video",
+      "settings": {
+        "desktop_video": "shopify://files/videos/Neophar Factory tour VO2-1920x1080 (1).mp4",
+        "mobile_video": "shopify://files/videos/Neophar Factory tuor-1080x1920 v3.mp4",
+        "autoplay": true,
+        "loop": true,
+        "mute": false,
+        "controls": false,
+        "overlay_opacity": 20,
+        "full_width": true,
+        "video_height_desktop": 56,
+        "video_height_mobile": 132,
+        "section_bg_color": "#ffffff",
+        "heading": "",
+        "heading_size": "h1",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "button button--primary",
+        "content_position": "middle-center",
+        "text_alignment": "center",
+        "content_max_width": 600,
+        "text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "c0b282af-5cb1-4986-af88-5363756aff46",
+    "scrolling_content_zDBGJx",
+    "16549177944ec2347e",
+    "featured_collection_grid_WnbEVJ",
+    "custom_category_4dkDCx",
+    "featured_collection_slider_EpMWkj",
+    "reels_video_r33MQT",
+    "rich_text_LpQTyD",
+    "dynamic_video_Cm9XMz"
+  ]
+}

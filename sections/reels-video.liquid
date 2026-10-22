@@ -1,0 +1,1164 @@
+{%- liquid
+  assign section_id = 'vc-' | append: section.id
+  assign autoplay_speed = section.settings.autoplay_speed | default: 4000
+  assign slide_speed    = section.settings.slide_speed    | default: 600
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="
+    video-commerce
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="video-commerce"
+  style="
+    --vc-bg: {{ section.settings.background_color }};
+    --vc-card-bg: {{ section.settings.card_background_color }};
+    --vc-card-radius: {{ section.settings.card_border_radius }}px;
+    --vc-overlay-bg: {{ section.settings.overlay_color }};
+    --vc-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --vc-title-color: {{ section.settings.title_color }};
+    --vc-price-color: {{ section.settings.price_color }};
+    --vc-btn-bg: {{ section.settings.button_background }};
+    --vc-btn-color: {{ section.settings.button_text_color }};
+    --vc-video-height-desktop: {{ section.settings.video_height_desktop }}px;
+    --vc-video-height-mobile: {{ section.settings.video_height_mobile }}px;
+  "
+>
+  <div class="video-commerce__inner">
+
+    {%- unless section.settings.heading == blank and section.settings.subheading == blank -%}
+      <div class="video-commerce__header section-introduction">
+        {%- unless section.settings.heading == blank -%}
+          <{{ section.settings.heading_tag }} class="video-commerce__heading ff-heading fs-heading-3-base section-introduction__heading">
+            {{ section.settings.heading }}
+          </{{ section.settings.heading_tag }}>
+        {%- endunless -%}
+        {%- unless section.settings.subheading == blank -%}
+          <div class="video-commerce__subheading ff-body fs-body-100 rte section-introduction__subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endunless -%}
+      </div>
+    {%- endunless -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="video-commerce__carousel-wrap">
+
+        {%- if section.settings.show_arrows -%}
+          <button type="button" class="video-commerce__arrow video-commerce__arrow--prev" aria-label="Previous slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" class="video-commerce__arrow video-commerce__arrow--next" aria-label="Next slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        {%- endif -%}
+
+        <div
+          class="video-commerce__swiper swiper"
+          data-vc-autoplay="{{ section.settings.enable_autoplay }}"
+          data-vc-autoplay-speed="{{ autoplay_speed }}"
+          data-vc-slide-speed="{{ slide_speed }}"
+          data-vc-loop="{{ section.settings.enable_loop }}"
+          data-vc-continuous="{{ section.settings.continuous_scroll }}"
+          data-vc-pause-on-hover="{{ section.settings.pause_on_hover }}"
+          data-vc-desktop="{{ section.settings.slides_per_view_desktop }}"
+          data-vc-tablet="{{ section.settings.slides_per_view_tablet }}"
+          data-vc-mobile="{{ section.settings.slides_per_view_mobile }}"
+          data-vc-space="{{ section.settings.space_between }}"
+          data-vc-show-arrows="{{ section.settings.show_arrows }}"
+          data-vc-show-dots="{{ section.settings.show_dots }}"
+        >
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign product   = all_products[block.settings.product]
+                assign has_video = false
+                if block.settings.product_video != blank
+                  assign has_video = true
+                endif
+                assign has_product = false
+                if block.settings.product != blank and product != blank
+                  assign has_product = true
+                endif
+                assign vc_video_src = ''
+                for src in block.settings.product_video.sources
+                  if src.format == 'mp4'
+                    assign vc_video_src = src.url
+                    break
+                  endif
+                endfor
+                if vc_video_src == '' and block.settings.product_video.sources.size > 0
+                  assign vc_video_src = block.settings.product_video.sources[0].url
+                endif
+              -%}
+
+              {%- if has_video -%}
+                <div class="swiper-slide video-commerce__slide" {{ block.shopify_attributes }}>
+                  <div class="video-commerce__card" style="border-radius: var(--vc-card-radius); background: var(--vc-card-bg);">
+
+                    <div class="video-commerce__video-wrap">
+
+                      <button
+                        type="button"
+                        class="video-commerce__video-trigger"
+                        aria-label="Play video fullscreen"
+                        data-vc-video-src="{{ vc_video_src }}"
+                      ></button>
+
+                      {{ block.settings.product_video | video_tag:
+                        autoplay: true,
+                        muted: true,
+                        loop: true,
+                        playsinline: true,
+                        class: 'video-commerce__video',
+                        preload: 'metadata'
+                      }}
+
+                      <div class="video-commerce__overlay" aria-hidden="true"></div>
+
+                      {%- if section.settings.show_sound_toggle -%}
+                        <button type="button" class="video-commerce__sound-btn" aria-label="Toggle sound" data-vc-sound>
+                          <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                          <svg class="icon-sound" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                        </button>
+                      {%- endif -%}
+
+                      {%- if block.settings.badge_text != blank -%}
+                        <span class="video-commerce__badge ff-body fs-body-75">{{ block.settings.badge_text }}</span>
+                      {%- endif -%}
+
+                    </div>
+
+                    {%- if has_product and section.settings.show_product_info -%}
+                      <div class="video-commerce__info">
+                        {%- if section.settings.show_product_image -%}
+                          <a href="{{ product.url }}" class="video-commerce__thumb-link" tabindex="-1" aria-hidden="true">
+                            <img
+                              src="{{ product.featured_image | img_url: '100x100', crop: 'center' }}"
+                              alt="{{ product.title | escape }}"
+                              class="video-commerce__thumb"
+                              width="44" height="44"
+                              loading="lazy"
+                            >
+                          </a>
+                        {%- endif -%}
+                        <div class="video-commerce__meta">
+                          <a href="{{ product.url }}" class="video-commerce__product-title ff-heading fs-body-100" style="color: var(--vc-title-color);">
+                            {{ product.title }}
+                          </a>
+                          {%- if section.settings.show_price -%}
+                            <div class="video-commerce__price ff-body fs-body-75" style="color: var(--vc-price-color);">
+                              {%- if product.compare_at_price > product.price -%}
+                                <s class="video-commerce__compare-price">{{ product.compare_at_price | money }}</s>
+                              {%- endif -%}
+                              <span class="video-commerce__sale-price">{{ product.price | money }}</span>
+                              {%- if product.compare_at_price > product.price -%}
+                                {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+                                <span class="video-commerce__discount-badge">-{{ savings }}%</span>
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                        {%- if section.settings.show_atc_button -%}
+                          
+                            href="{{ product.url }}"
+                            class="video-commerce__atc-btn btn {{ section.settings.button_style }}"
+                            style="background: var(--vc-btn-bg); color: var(--vc-btn-color);"
+                            aria-label="{{ 'products.product.add_to_cart' | t }} - {{ product.title | escape }}"
+                          >
+                            <span>
+                              {%- if product.available -%}
+                                {%- if section.settings.button_label != blank -%}{{ section.settings.button_label }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}
+                              {%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+                            </span>
+                          </a>
+                        {%- endif -%}
+                      </div>
+                    {%- elsif has_product -%}
+                      <a href="{{ product.url }}" class="video-commerce__full-link" aria-label="{{ product.title | escape }}"></a>
+                    {%- endif -%}
+
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if section.settings.show_dots -%}
+            <div class="video-commerce__pagination swiper-pagination"></div>
+          {%- endif -%}
+        </div>
+      </div>
+
+    {%- else -%}
+      <div class="video-commerce__empty">
+        <p class="ff-body fs-body-100">{{ 'sections.video_commerce.empty' | t | default: 'Add video product blocks to get started.' }}</p>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- comment -%} Lightbox — rendered OUTSIDE section div, directly in body flow {%- endcomment -%}
+<div
+  class="vc-lightbox"
+  id="{{ section_id }}-lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Video player"
+  hidden
+>
+  <div class="vc-lightbox__backdrop"></div>
+  <div class="vc-lightbox__container">
+    <button type="button" class="vc-lightbox__close" aria-label="Close video">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="vc-lightbox__video-wrap">
+      <video class="vc-lightbox__video" controls playsinline preload="none"></video>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ══ Section ══ */
+  #{{ section_id }} { background: var(--vc-bg); }
+
+  #{{ section_id }} .video-commerce__inner {
+    max-width: var(--page-width, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--page-gutter, 20px);
+  }
+  #{{ section_id }} .video-commerce__header {
+    margin-bottom: 32px;
+    text-align: {{ section.settings.heading_alignment }};
+  }
+  #{{ section_id }} .video-commerce__subheading { margin-top: 8px; opacity: 0.75; }
+
+  #{{ section_id }} .video-commerce__carousel-wrap { position: relative; }
+
+  #{{ section_id }} .video-commerce__swiper { overflow: hidden; width: 100%; }
+  #{{ section_id }} .swiper-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch;
+    transition-property: transform;
+  }
+  #{{ section_id }} .swiper-slide { height: auto; width: 100%; }
+  #{{ section_id }} .swiper-initialized .swiper-slide { flex: 0 0 auto; width: auto; }
+
+  /* ══ Card ══ */
+  #{{ section_id }} .video-commerce__card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  #{{ section_id }} .video-commerce__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  }
+
+  /* ══ Video ══ */
+  #{{ section_id }} .video-commerce__video-wrap {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  #{{ section_id }} .video-commerce__video {
+    width: 100%;
+    height: var(--vc-video-height-desktop);
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* ══ Trigger ══ */
+  #{{ section_id }} .video-commerce__video-trigger {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 4;
+    padding: 0;
+  }
+
+  /* ══ Overlay ══ */
+  #{{ section_id }} .video-commerce__overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--vc-overlay-bg);
+    opacity: var(--vc-overlay-opacity);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ══ Sound btn ══ */
+  #{{ section_id }} .video-commerce__sound-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; z-index: 6;
+    transition: background 0.2s;
+  }
+  #{{ section_id }} .video-commerce__sound-btn:hover { background: rgba(0,0,0,0.7); }
+
+  /* ══ Badge ══ */
+  #{{ section_id }} .video-commerce__badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: var(--vc-btn-bg, #e91e63);
+    color: var(--vc-btn-color, #fff);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    z-index: 5; pointer-events: none;
+  }
+
+  /* ══ Product info panel ══ */
+  #{{ section_id }} .video-commerce__info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: var(--vc-card-bg);
+    flex-wrap: nowrap;
+    min-height: 0;
+  }
+  #{{ section_id }} .video-commerce__thumb-link { flex-shrink: 0; }
+  #{{ section_id }} .video-commerce__thumb {
+    width: 44px; height: 44px;
+    border-radius: 6px; object-fit: cover; display: block;
+  }
+  #{{ section_id }} .video-commerce__meta {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  #{{ section_id }} .video-commerce__product-title {
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  #{{ section_id }} .video-commerce__product-title:hover { text-decoration: underline; }
+  #{{ section_id }} .video-commerce__price {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  #{{ section_id }} .video-commerce__compare-price {
+    opacity: 0.5;
+    text-decoration: line-through;
+    font-size: 11px;
+  }
+  #{{ section_id }} .video-commerce__sale-price { font-weight: 700; font-size: 12px; }
+  #{{ section_id }} .video-commerce__discount-badge {
+    background: #e91e63; color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 5px; border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  /* ══ ATC button ══ */
+  #{{ section_id }} .video-commerce__atc-btn {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 7px 12px;
+    white-space: nowrap;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+    line-height: 1.2;
+  }
+  #{{ section_id }} .video-commerce__atc-btn:hover:not([disabled]) { opacity: 0.85; }
+  #{{ section_id }} .video-commerce__atc-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+  #{{ section_id }} .video-commerce__full-link { position: absolute; inset: 0; z-index: 4; }
+
+  /* ══ Arrows ══ */
+  #{{ section_id }} .video-commerce__arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    z-index: 10;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #222;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  #{{ section_id }} .video-commerce__arrow:hover {
+    background: #4E95C7; border-color: #4E95C7; color: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+  #{{ section_id }} .video-commerce__arrow--prev { left: -18px; }
+  #{{ section_id }} .video-commerce__arrow--next { right: -18px; }
+  #{{ section_id }} .video-commerce__arrow.swiper-button-disabled { opacity: 0.35; pointer-events: none; }
+
+  /* ══ Dots ══ */
+  #{{ section_id }} .video-commerce__pagination { margin-top: 18px; text-align: center; }
+  #{{ section_id }} .video-commerce__pagination .swiper-pagination-bullet {
+    background: currentColor; opacity: 0.3;
+    width: 8px; height: 8px; margin: 0 4px;
+    border-radius: 50%; display: inline-block;
+    cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+  }
+  #{{ section_id }} .video-commerce__pagination .swiper-pagination-bullet-active {
+    background: #4E95C7 !important; opacity: 1; transform: scale(1.3);
+  }
+  #{{ section_id }} .video-commerce__empty { text-align: center; padding: 60px 20px; opacity: 0.5; }
+
+  /* ══════════════════════════════════════
+     LIGHTBOX
+  ══════════════════════════════════════ */
+  .vc-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .vc-lightbox[hidden] { display: none !important; }
+
+  .vc-lightbox__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    cursor: pointer;
+    animation: vcFadeIn 0.22s ease;
+  }
+
+  .vc-lightbox__container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: min(380px, calc(100vw - 32px));
+    margin-top: 24px;
+    box-sizing: border-box;
+    animation: vcSlideUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Close btn — sits above video box, outside overflow:hidden wrap */
+  .vc-lightbox__close {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #111;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    transition: background 0.2s, transform 0.15s;
+    z-index: 10;
+  }
+  .vc-lightbox__close:hover { background: #e91e63; color: #fff; transform: scale(1.08); }
+
+  .vc-lightbox__video-wrap {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .vc-lightbox__video {
+    width: 100%;
+    display: block;
+    max-height: calc(100dvh - 120px);
+    object-fit: contain;
+    background: #000;
+  }
+
+  @keyframes vcFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes vcSlideUp {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ══════════════════════════════════════
+     DESKTOP responsive (750px - 1023px)
+  ══════════════════════════════════════ */
+  @media (max-width: 1023px) and (min-width: 750px) {
+    #{{ section_id }} .video-commerce__arrow--prev { left: 2px; }
+    #{{ section_id }} .video-commerce__arrow--next { right: 2px; }
+  }
+
+  /* ══════════════════════════════════════
+     MOBILE — max-width: 749px
+  ══════════════════════════════════════ */
+  @media (max-width: 749px) {
+
+    /* ── Carousel ── */
+    #{{ section_id }} .swiper-slide { width: 100%; }
+    #{{ section_id }} .swiper-initialized .swiper-slide { flex: 0 0 auto; width: auto; }
+    #{{ section_id }} .video-commerce__video { height: var(--vc-video-height-mobile); }
+    #{{ section_id }} .video-commerce__arrow--prev { left: 2px; }
+    #{{ section_id }} .video-commerce__arrow--next { right: 2px; }
+    #{{ section_id }} .video-commerce__arrow { width: 32px; height: 32px; }
+    #{{ section_id }} .video-commerce__inner { padding-right: 4px; padding-left: 4px; }
+
+    /* ── Info panel ── */
+    #{{ section_id }} .video-commerce__info { padding: 8px; gap: 6px; }
+    #{{ section_id }} .video-commerce__thumb { width: 36px; height: 36px; }
+    #{{ section_id }} .video-commerce__atc-btn { font-size: 10px; padding: 6px 8px; }
+    #{{ section_id }} .video-commerce__product-title { font-size: 11px; }
+
+    /* ── Lightbox mobile ── */
+    .vc-lightbox {
+      padding: 0;
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .vc-lightbox__backdrop {
+      position: fixed;
+      inset: 0;
+    }
+
+    .vc-lightbox__container {
+      position: relative;
+      z-index: 1;
+      width: calc(100vw - 24px);
+      max-width: calc(100vw - 145px);
+      margin: 0 auto;
+      /* top margin = safe area + space for fixed close btn */
+      margin-top: calc(56px + env(safe-area-inset-top, 12px));
+      margin-bottom: 20px;
+      padding: 0;
+      box-sizing: border-box;
+      animation: vcSlideUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .vc-lightbox__video-wrap {
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    .vc-lightbox__video {
+      width: 100%;
+      /* full screen height minus close btn area and safe zones */
+      max-height: calc(100dvh - 90px);
+      object-fit: contain;
+    }
+
+    /* Fixed close btn — always visible at top right */
+    .vc-lightbox__close {
+      position: fixed;
+      top: max(14px, env(safe-area-inset-top, 14px));
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      top: calc(env(safe-area-inset-top, 0px) + 14px);
+    }
+  }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  function initVideoCommerceSection(sectionEl) {
+    var swiperEl = sectionEl.querySelector('.video-commerce__swiper');
+    if (!swiperEl) return;
+
+    var autoplayEnabled = swiperEl.dataset.vcAutoplay === 'true';
+    var autoplaySpeed   = parseInt(swiperEl.dataset.vcAutoplaySpeed, 10) || 4000;
+    var slideSpeed      = parseInt(swiperEl.dataset.vcSlideSpeed, 10)    || 600;
+    var loopEnabled     = swiperEl.dataset.vcLoop === 'true';
+    var continuous      = swiperEl.dataset.vcContinuous === 'true';
+    var pauseOnHover    = swiperEl.dataset.vcPauseOnHover === 'true';
+    var perViewDesktop  = parseFloat(swiperEl.dataset.vcDesktop) || 4;
+    var perViewTablet   = parseFloat(swiperEl.dataset.vcTablet)  || 2;
+    var perViewMobile   = parseFloat(swiperEl.dataset.vcMobile)  || 1;
+    var spaceBetween    = parseInt(swiperEl.dataset.vcSpace, 10) || 12;
+    var showArrows      = swiperEl.dataset.vcShowArrows === 'true';
+    var showDots        = swiperEl.dataset.vcShowDots   === 'true';
+
+    var prevBtn      = sectionEl.querySelector('.video-commerce__arrow--prev');
+    var nextBtn      = sectionEl.querySelector('.video-commerce__arrow--next');
+    var paginationEl = sectionEl.querySelector('.video-commerce__pagination');
+
+    var swiperConfig = {
+      slidesPerView: perViewMobile,
+      spaceBetween: spaceBetween,
+      loop: loopEnabled,
+      speed: continuous ? 5000 : slideSpeed,
+      grabCursor: true,
+      watchSlidesProgress: true,
+      breakpoints: {
+        480:  { slidesPerView: perViewTablet },
+        1024: { slidesPerView: perViewDesktop }
+      }
+    };
+
+    if (showArrows && prevBtn && nextBtn) {
+      swiperConfig.navigation = { prevEl: prevBtn, nextEl: nextBtn };
+    }
+    if (showDots && paginationEl) {
+      swiperConfig.pagination = {
+        el: paginationEl, clickable: true,
+        bulletClass: 'swiper-pagination-bullet',
+        bulletActiveClass: 'swiper-pagination-bullet-active'
+      };
+    }
+    if (autoplayEnabled) {
+      if (continuous) {
+        swiperConfig.autoplay         = { delay: 1, disableOnInteraction: false, pauseOnMouseEnter: pauseOnHover };
+        swiperConfig.freeMode         = true;
+        swiperConfig.freeModeSticky   = false;
+        swiperConfig.freeModeMomentum = false;
+        swiperConfig.allowTouchMove   = true;
+      } else {
+        swiperConfig.autoplay = { delay: autoplaySpeed, disableOnInteraction: false, pauseOnMouseEnter: pauseOnHover };
+      }
+    }
+
+    var initSwiper = function (mod) {
+      if (!mod || !mod.Swiper) return;
+      swiperConfig.modules = [mod.Navigation, mod.Autoplay, mod.Pagination, mod.FreeMode].filter(Boolean);
+      new mod.Swiper(swiperEl, swiperConfig);
+    };
+
+    if (window.flu && flu.chunks && flu.chunks.swiper) {
+      import(flu.chunks.swiper).then(initSwiper).catch(function (e) { console.error('[VC] Swiper:', e); });
+    } else if (window.Swiper) {
+      initSwiper({ Swiper: window.Swiper, Navigation: window.Navigation, Autoplay: window.Autoplay, Pagination: window.Pagination, FreeMode: window.FreeMode });
+    }
+
+    /* ── Sound toggle ── */
+    sectionEl.querySelectorAll('[data-vc-sound]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var vid = btn.closest('.video-commerce__video-wrap').querySelector('video');
+        if (!vid) return;
+        if (vid.muted) {
+          vid.muted = false; vid.volume = 1;
+          vid.play().catch(function(){});
+          btn.querySelector('.icon-muted').style.display = 'none';
+          btn.querySelector('.icon-sound').style.display = 'block';
+        } else {
+          vid.muted = true;
+          btn.querySelector('.icon-muted').style.display = 'block';
+          btn.querySelector('.icon-sound').style.display = 'none';
+        }
+      });
+    });
+
+    /* ── IntersectionObserver ── */
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          en.isIntersecting ? en.target.play().catch(function(){}) : en.target.pause();
+        });
+      }, { threshold: 0.25 });
+      sectionEl.querySelectorAll('.video-commerce__video').forEach(function (v) { obs.observe(v); });
+    }
+
+    /* ════════════════════════════════════
+       LIGHTBOX
+       — find by id so it works even though
+         the element is now outside sectionEl
+    ════════════════════════════════════ */
+    var sectionId    = sectionEl.id;                              // e.g. "vc-abc123"
+    var lightbox     = document.getElementById(sectionId + '-lightbox');
+    var lightboxVid  = lightbox ? lightbox.querySelector('.vc-lightbox__video')   : null;
+    var closeBtn     = lightbox ? lightbox.querySelector('.vc-lightbox__close')   : null;
+    var backdrop     = lightbox ? lightbox.querySelector('.vc-lightbox__backdrop') : null;
+
+    if (!lightbox || !lightboxVid) return;
+
+    function openLightbox(src) {
+      sectionEl.querySelectorAll('.video-commerce__video').forEach(function (v) { v.pause(); });
+
+      lightboxVid.pause();
+      lightboxVid.removeAttribute('src');
+      lightboxVid.load();
+
+      lightboxVid.src = src;
+      lightboxVid.load();
+
+      lightbox.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+
+      lightboxVid.play().catch(function (err) {
+        console.warn('[VC Lightbox] play() blocked by browser — user can press play manually:', err);
+      });
+
+      if (closeBtn) setTimeout(function () { closeBtn.focus(); }, 60);
+    }
+
+    function closeLightbox() {
+      lightboxVid.pause();
+      lightboxVid.removeAttribute('src');
+      lightboxVid.load();
+      lightbox.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+
+      sectionEl.querySelectorAll('.video-commerce__video').forEach(function (v) {
+        var r = v.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) v.play().catch(function(){});
+      });
+    }
+
+    function resolveVideoSrc(trigger) {
+      var src = (trigger.dataset.vcVideoSrc || '').trim();
+      if (src && src !== 'undefined' && src !== 'null' && src !== '') return src;
+
+      var wrap = trigger.closest('.video-commerce__video-wrap');
+      var vid  = wrap ? wrap.querySelector('.video-commerce__video') : null;
+      if (!vid) return '';
+
+      var mp4 = vid.querySelector('source[type="video/mp4"]');
+      if (mp4 && mp4.src) return mp4.src;
+
+      var any = vid.querySelector('source');
+      if (any && any.src) return any.src;
+
+      return vid.currentSrc || vid.src || '';
+    }
+
+    sectionEl.querySelectorAll('.video-commerce__video-trigger').forEach(function (trigger) {
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var src = resolveVideoSrc(trigger);
+        if (src) { openLightbox(src); }
+        else { console.warn('[VC] Could not resolve video src.'); }
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (backdrop)  backdrop.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lightbox.hasAttribute('hidden')) closeLightbox();
+    });
+  }
+
+  function boot() {
+    document.querySelectorAll('[data-section-type="video-commerce"]').forEach(initVideoCommerceSection);
+  }
+
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', boot)
+    : boot();
+
+  document.addEventListener('shopify:section:load', function (e) {
+    var el = e.target.querySelector('[data-section-type="video-commerce"]');
+    if (el) initVideoCommerceSection(el);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Reels Video",
+  "tag": "section",
+  "class": "video-commerce-wrap",
+  "disabled_on": {
+    "groups": ["header", "custom.overlay"],
+    "templates": ["password"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop the Look"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading Tag",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Video Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Video Overlay Opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Product Title Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#e91e63"
+    },
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "range",
+      "id": "video_height_desktop",
+      "label": "Video Height – Desktop",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 450
+    },
+    {
+      "type": "range",
+      "id": "video_height_mobile",
+      "label": "Video Height – Mobile",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Corner Radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sound_toggle",
+      "label": "Show Sound Toggle Button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_desktop",
+      "label": "Slides per View – Desktop",
+      "options": [
+        { "value": "2",   "label": "2" },
+        { "value": "3",   "label": "3" },
+        { "value": "4",   "label": "4" },
+        { "value": "4.5", "label": "4.5 (peek)" },
+        { "value": "5",   "label": "5" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_tablet",
+      "label": "Slides per View – Tablet",
+      "options": [
+        { "value": "1.5", "label": "1.5 (peek)" },
+        { "value": "2",   "label": "2" },
+        { "value": "2.5", "label": "2.5 (peek)" },
+        { "value": "3",   "label": "3" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_mobile",
+      "label": "Slides per View – Mobile",
+      "options": [
+        { "value": "1",   "label": "1" },
+        { "value": "1.1", "label": "1.1 (peek)" },
+        { "value": "1.5", "label": "1.5 (peek)" },
+        { "value": "2",   "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "label": "Space Between Slides",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Autoplay & Loop"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_loop",
+      "label": "Enable Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "continuous_scroll",
+      "label": "Continuous / Ticker Scroll",
+      "info": "When enabled, slides scroll non-stop like a ticker. Overrides autoplay delay.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Delay (ms)",
+      "info": "Time each slide stays visible. Ignored when Continuous Scroll is on.",
+      "min": 1000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 4000
+    },
+    {
+      "type": "range",
+      "id": "slide_speed",
+      "label": "Slide Transition Speed (ms)",
+      "min": 200,
+      "max": 2000,
+      "step": 100,
+      "unit": "ms",
+      "default": 600
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause Autoplay on Hover",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show Prev / Next Arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Pagination Dots",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product Info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_info",
+      "label": "Show Product Info Panel",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_image",
+      "label": "Show Product Thumbnail",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show Price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_atc_button",
+      "label": "Show Shop / Add to Cart Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "info": "Leave blank to use default 'Add to Cart' text.",
+      "placeholder": "Shop Now"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        { "value": "btn--primary",   "label": "Solid (Primary)"    },
+        { "value": "btn--secondary", "label": "Outline (Secondary)" },
+        { "value": "btn--callout",   "label": "Text / Callout"     }
+      ],
+      "default": "btn--primary"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background (overrides style)",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Animation",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "Divider Style",
+      "options": [
+        { "value": "none",  "label": "None"  },
+        { "value": "solid", "label": "Solid" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "Section Padding",
+      "options": [
+        { "value": "section--vertical-padding-none",        "label": "None"         },
+        { "value": "section--vertical-padding-top-bottom",  "label": "Top & Bottom" },
+        { "value": "section--vertical-padding-top-only",    "label": "Top Only"     },
+        { "value": "section--vertical-padding-bottom-only", "label": "Bottom Only"  }
+      ],
+      "default": "section--vertical-padding-top-bottom"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_product",
+      "name": "Video + Product",
+      "settings": [
+        {
+          "type": "video",
+          "id": "product_video",
+          "label": "Product Video"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Linked Product"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "info": "e.g. NEW, SALE, HOT — leave blank to hide",
+          "placeholder": "NEW"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Reels Video",
+      "category": "Custom",
+      "blocks": [
+        { "type": "video_product" },
+        { "type": "video_product" },
+        { "type": "video_product" },
+        { "type": "video_product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

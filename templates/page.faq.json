@@ -1,0 +1,407 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animation": true,
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "rich-text-1": {
+      "type": "rich-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "FAQs",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "block-1": {
+          "type": "spacer",
+          "disabled": true,
+          "settings": {
+            "space": 12
+          }
+        },
+        "block-2": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Use this text area to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "block-3": {
+          "type": "spacer",
+          "disabled": true,
+          "settings": {
+            "space": 12
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "rich-text-2": {
+      "type": "rich-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Orders",
+            "heading_font_class": "fs-heading-3-base"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Below are some of are common questions about orders</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "collapsible-row-list-1": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "block-0": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How can I place an order?",
+            "text": "<p>Once you have added the desired items to your cart, follow the instructions:</p>"
+          }
+        },
+        "block-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Can I open the parcel/order at the time of delivery?",
+            "text": "<p>Customers cannot open up the parcel/order before cash is given to the dispatch team. In case of damage/defect customer should let us know via helpline +92-333-042-4231</p>"
+          }
+        },
+        "block-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Do shipping charges vary with the weight of the order?",
+            "text": "<p>As per courier arrangements, the cost of shipping does not increase with the weight of the order</p>"
+          }
+        },
+        "block-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How many times will the courier agent attempt to deliver my order in case I am unavailable to receive it?",
+            "text": "<p>Our delivery agents make two attempts to deliver a parcel. Kindly ensure that the mobile number and shipping address are mentioned clearly while placing an order. On the second failed attempt, the item will be returned to us.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "settings": {
+        "title": "",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "subheading": "",
+        "subheading_font_class": "fs-heading-5-base",
+        "item_heading_font": "body",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-bottom-only",
+        "content_width": "custom",
+        "custom_content_width": 850
+      }
+    },
+    "rich-text-3": {
+      "type": "rich-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Shipping & Returns",
+            "heading_font_class": "fs-heading-3-base"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Below are some common questions about shipping, returns, and exchanges</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "collapsible-row-list-2": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "block-0": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        },
+        "block-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        },
+        "block-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        },
+        "block-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "subheading": "",
+        "subheading_font_class": "fs-heading-5-base",
+        "item_heading_font": "body",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-bottom-only",
+        "content_width": "custom",
+        "custom_content_width": 850
+      }
+    },
+    "rich-text-4": {
+      "type": "rich-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Products",
+            "heading_font_class": "fs-heading-3-base"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Below are some common questions about our products</p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "collapsible-row-list-3": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "block-0": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        },
+        "block-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        },
+        "block-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        },
+        "block-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "This is an example of a question that a customer might ask",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "subheading": "",
+        "subheading_font_class": "fs-heading-5-base",
+        "item_heading_font": "body",
+        "enable_animation": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-bottom-only",
+        "content_width": "custom",
+        "custom_content_width": 850
+      }
+    },
+    "rich-text-5": {
+      "type": "rich-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Didn't find your answer?",
+            "heading_font_class": "fs-heading-3-base"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Don't hestitate to contact us</p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "block-2": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Contact us",
+            "button_style": "btn--primary"
+          }
+        },
+        "block-3": {
+          "type": "spacer",
+          "settings": {
+            "space": 12
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich-text-1",
+    "rich-text-2",
+    "collapsible-row-list-1",
+    "rich-text-3",
+    "collapsible-row-list-2",
+    "rich-text-4",
+    "collapsible-row-list-3",
+    "rich-text-5"
+  ]
+}

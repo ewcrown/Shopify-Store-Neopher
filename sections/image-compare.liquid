@@ -1,0 +1,615 @@
+{%- liquid
+  # 1. Get the images from product metafields
+  # Make sure you have created these metafields in Shopify Admin > Settings > Custom data > Products
+  # Namespace: custom, Key: before_image (Type: File)
+  # Namespace: custom, Key: after_image (Type: File)
+  assign before_image = product.metafields.custom.before_image.value
+  assign after_image = product.metafields.custom.after_image.value
+
+  # 2. Critical Check: If either image is missing, stop rendering the section immediately.
+  if before_image == blank or after_image == blank
+    break
+  endif
+
+  # Since we are not using blocks anymore, we get settings from section settings now.
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+
+  # Filter calculations (applied same filter to both for simplicity based on section setting)
+  case section.settings.filter_effect
+    when 'blur'
+      assign filter_amount = section.settings.filter_amount | divided_by: 25.0 | append: 'px'
+    when 'brightness' or 'contrast' or 'saturate'
+      assign filter_amount = section.settings.filter_amount | divided_by: 50.0
+    when 'grayscale' or 'invert' or 'sepia'
+      assign filter_amount = section.settings.filter_amount | divided_by: 100.0
+  endcase
+
+  # Text position calculations
+  assign before_text_position = section.settings.before_text_position | split: "_"
+  assign before_horizontal_position = before_text_position | first
+  assign before_vertical_position = before_text_position | last
+  
+  assign after_text_position = section.settings.after_text_position | split: "_"
+  assign after_horizontal_position = after_text_position | first
+  assign after_vertical_position = after_text_position | last
+-%}
+
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="image-compare"
+  class="
+    image-compare
+    image-compare--{{ section.settings.aspect_ratio }}
+    image-compare--{{ section.settings.reveal_direction }}
+    image-compare--image-{{ section.settings.image_position }}
+    image-compare--justify-{{ section.settings.text_alignment }}
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--image-compare
+    {% endif %}
+  "
+  style="
+    --slider-color: {{ section.settings.slider_color }};
+    --slider-arrows-color: {{ section.settings.slider_arrows_color }};
+    --image-max-width: {{ section.settings.image_max_width }}px;
+    --text-alignment: {{ section.settings.text_alignment }};
+    --overlay-background: {{ section.settings.color_overlay }};
+    {% if section.settings.color_overlay_gradient != blank -%}
+      --overlay-background-gradient: {{ section.settings.color_overlay_gradient }};
+    {%- endif %}
+    --overlay-opacity: {{ overlay_opacity }};
+    --filter-amount: {{ filter_amount }};
+  ";
+>
+  <div class="image-compare__inner">
+    <div class="image-compare__text-container">
+      <div class="image-compare__text-container-inner">
+        <div class="section-introduction animation--section-introduction">
+          {%- unless section.settings.heading == blank -%}
+            <{{ section.settings.heading_tag }} class="ff-heading {{ section.settings.heading_font_class }} section-introduction__heading">
+              {{ section.settings.heading }}
+            </{{ section.settings.heading_tag }}>
+          {%- endunless -%}
+
+          {%- unless section.settings.subheading == blank -%}
+            <div class="ff-body fs-body-100 rte section-introduction__subheading">
+              {{ section.settings.subheading }}
+            </div>
+          {%- endunless -%}
+
+          {%-
+            render 'button-block',
+            wrapper_class: "section-introduction__button",
+            link: section.settings.link,
+            label: section.settings.link_text,
+            button_style: section.settings.button_style,
+            button_alignment: section.settings.text_alignment,
+          -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="image-compare__image-container">
+      <div class="image-compare__image-container-inner">
+        
+        {%- comment -%} BEFORE IMAGE WRAPPER {%- endcomment -%}
+        <div
+          class="
+            image-compare__image-wrapper
+            {% if section.settings.filter_effect != 'none' -%}
+              image-compare__image--{{ section.settings.filter_effect }}
+            {%- endif -%}
+          "
+          style="
+            --text-horizontal-position: {{ before_horizontal_position }};
+            --text-vertical-position: {{ before_vertical_position }};
+            --color-text: {{ section.settings.before_text_color }};
+            --color-text-container: {{ section.settings.before_text_container_color }};
+          "
+        >
+            <div class="image-compare__image-before">
+              {% render 'image',
+                image: before_image,
+                wrapper_class: 'image-compare__image',
+                aspect_ratio: section.settings.aspect_ratio,
+                focal_point: before_image.presentation.focal_point,
+                include_placeholder: false,
+                sizes: "(min-width: 960px) calc(100vw - calc(2 * 3.3vw)), calc(100vw - calc(2 * clamp(18px, 3.3vw, 3.3vw)))",
+                animate: true
+              %}
+                <div class="image-compare__overlay"></div>
+                {%- if section.settings.show_labels -%}
+                  <div class="image-compare__label-container-wrapper animation--label">
+                    <div class="image-compare__label-container">
+                      <div class="image-compare__label-container-inner section-blocks animation--section-blocks">
+                        {%- unless section.settings.before_text == blank -%}
+                          <div class="image-compare__label-container-text ff-body fs-body-75 fs-body-100-ns section-blocks__text">
+                            {{ section.settings.before_text }}
+                          </div>
+                        {%- endunless -%}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+            </div>
+        </div>
+
+        {%- comment -%} AFTER IMAGE WRAPPER {%- endcomment -%}
+        <div
+          class="
+            image-compare__image-wrapper
+            {% if section.settings.filter_effect != 'none' -%}
+              image-compare__image--{{ section.settings.filter_effect }}
+            {%- endif -%}
+          "
+          style="
+            --text-horizontal-position: {{ after_horizontal_position }};
+            --text-vertical-position: {{ after_vertical_position }};
+            --color-text: {{ section.settings.after_text_color }};
+            --color-text-container: {{ section.settings.after_text_container_color }};
+          "
+        >
+            <div class="image-compare__image-after">
+              {% render 'image',
+                image: after_image,
+                wrapper_class: 'image-compare__image',
+                aspect_ratio: section.settings.aspect_ratio,
+                focal_point: after_image.presentation.focal_point,
+                include_placeholder: false,
+                sizes: "(min-width: 960px) calc(100vw - calc(2 * 3.3vw)), calc(100vw - calc(2 * clamp(18px, 3.3vw, 3.3vw)))",
+                animate: true
+              %}
+                <div class="image-compare__overlay"></div>
+                {%- if section.settings.show_labels -%}
+                  <div class="image-compare__label-container-wrapper animation--label">
+                    <div class="image-compare__label-container">
+                      <div class="image-compare__label-container-inner section-blocks animation--section-blocks">
+                        {%- unless section.settings.after_text == blank -%}
+                          <div class="image-compare__label-container-text ff-body fs-body-75 fs-body-100-ns section-blocks__text">
+                            {{ section.settings.after_text }}
+                          </div>
+                        {%- endunless -%}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+            </div>
+        </div>
+
+      </div>
+      
+      {%- comment -%} Slider Controls (Always show since we only render if images exist) {%- endcomment -%}
+      <input
+        type="range"
+        value="50"
+        step="any"
+        aria-label="Percentage of after photo shown"
+        class="image-compare__slider"
+        orient="{% # for Firefox %}{{ section.settings.reveal_direction }}"
+      >
+      <div class="image-compare__slider-line" aria-hidden="true"></div>
+      <div class="image-compare__slider-button" aria-hidden="true">
+        <div class="image-compare__slider-button-arrows">
+          <div class="image-compare__slider-button-arrow image-compare__slider-button-arrow-before">{% render 'icon', icon: 'chevron-small' %}</div>
+          <div class="image-compare__slider-button-arrow image-compare__slider-button-arrow-after">{% render 'icon', icon: 'chevron-small' %}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.image_compare.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Metafield Requirement"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section requires two product metafields (File type): 'custom.before_image' and 'custom.after_image'. The section will only display if BOTH images are populated for the product."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:sections.image_compare.settings.image_position.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image_compare.settings.image_position.options.left"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image_compare.settings.image_position.options.right"
+        },
+        {
+          "value": "below",
+          "label": "t:sections.image_compare.settings.image_position.options.below"
+        }
+      ],
+      "default": "below"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "t:sections.image_compare.settings.aspect_ratio.label",
+      "options": [
+        {
+          "value": "square",
+          "label": "t:shared.options.aspect_ratio.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:shared.options.aspect_ratio.portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:shared.options.aspect_ratio.landscape"
+        }
+      ],
+      "default": "landscape"
+    },
+    {
+      "type": "select",
+      "id": "reveal_direction",
+      "label": "t:sections.image_compare.settings.reveal_direction.label",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "t:sections.image_compare.settings.reveal_direction.options.horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "t:sections.image_compare.settings.reveal_direction.options.vertical"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "label": "t:sections.image_compare.settings.image_max_width.label",
+      "min": 300,
+      "max": 1400,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "color",
+      "id": "slider_color",
+      "label": "t:sections.image_compare.settings.slider_color.label",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "slider_arrows_color",
+      "label": "t:sections.image_compare.settings.slider_arrows_color.label",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.image_compare.settings.text.header.content"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "t:shared.settings.alignment_horizontal.text.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:shared.options.alignment.horizontal.left"
+        },
+        {
+          "value": "center",
+          "label": "t:shared.options.alignment.horizontal.center"
+        },
+        {
+          "value": "right",
+          "label": "t:shared.options.alignment.horizontal.right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.image_compare.settings.text.heading.label",
+      "default": "t:sections.image_compare.settings.text.heading.default"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:shared.settings.heading_tag.heading.label",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:shared.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:shared.settings.heading_tag.options.h3"
+        },
+        {
+          "value": "h4",
+          "label": "t:shared.settings.heading_tag.options.h4"
+        },
+        {
+          "value": "h5",
+          "label": "t:shared.settings.heading_tag.options.h5"
+        },
+        {
+          "value": "h6",
+          "label": "t:shared.settings.heading_tag.options.h6"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_class",
+      "label": "t:shared.settings.heading_font_class.label",
+      "options": [
+        {
+          "value": "fs-heading-3-base",
+          "label": "t:shared.settings.heading_font_class.options.small"
+        },
+        {
+          "value": "fs-heading-2-base",
+          "label": "t:shared.settings.heading_font_class.options.medium"
+        },
+        {
+          "value": "fs-heading-1-base",
+          "label": "t:shared.settings.heading_font_class.options.large"
+        }
+      ],
+      "default": "fs-heading-3-base"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "t:sections.image_compare.settings.text.subheading.label",
+      "default": "t:sections.image_compare.settings.text.subheading.default"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.image_compare.settings.button.header.content"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:shared.settings.button_link.label"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "t:shared.settings.button_link_text.label"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "t:shared.settings.button_style.label",
+      "options": [
+        {
+          "value": "btn--primary",
+          "label": "t:shared.settings.button_style.options.solid"
+        },
+        {
+          "value": "btn--secondary",
+          "label": "t:shared.settings.button_style.options.outline"
+        },
+        {
+          "value": "btn--callout",
+          "label": "t:shared.settings.button_style.options.text"
+        }
+      ],
+      "default": "btn--secondary"
+    },
+    {
+      "type": "header",
+      "content": "Image Labels & Styling"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_labels",
+      "label": "Show labels on images",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "'Before' Image Settings"
+    },
+    {
+      "type": "text",
+      "id": "before_text",
+      "label": "Label Text",
+      "default": "Before"
+    },
+    {
+      "type": "select",
+      "id": "before_text_position",
+      "label": "Label Position",
+      "options": [
+        { "value": "flex-start_flex-start", "label": "Top Left" },
+        { "value": "center_flex-start", "label": "Top Center" },
+        { "value": "flex-end_flex-start", "label": "Top Right" },
+        { "value": "flex-start_center", "label": "Middle Left" },
+        { "value": "flex-end_center", "label": "Middle Right" },
+        { "value": "flex-start_flex-end", "label": "Bottom Left" },
+        { "value": "center_flex-end", "label": "Bottom Center" },
+        { "value": "flex-end_flex-end", "label": "Bottom Right" }
+      ],
+      "default": "flex-start_flex-start"
+    },
+    {
+      "type": "color",
+      "id": "before_text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "before_text_container_color",
+      "label": "Container Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "'After' Image Settings"
+    },
+    {
+      "type": "text",
+      "id": "after_text",
+      "label": "Label Text",
+      "default": "After"
+    },
+    {
+      "type": "select",
+      "id": "after_text_position",
+      "label": "Label Position",
+      "options": [
+        { "value": "flex-start_flex-start", "label": "Top Left" },
+        { "value": "center_flex-start", "label": "Top Center" },
+        { "value": "flex-end_flex-start", "label": "Top Right" },
+        { "value": "flex-start_center", "label": "Middle Left" },
+        { "value": "flex-end_center", "label": "Middle Right" },
+        { "value": "flex-start_flex-end", "label": "Bottom Left" },
+        { "value": "center_flex-end", "label": "Bottom Center" },
+        { "value": "flex-end_flex-end", "label": "Bottom Right" }
+      ],
+      "default": "flex-end_flex-end"
+    },
+    {
+      "type": "color",
+      "id": "after_text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "after_text_container_color",
+      "label": "Container Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Image Effects (Applied to both)"
+    },
+    {
+      "type": "select",
+      "id": "filter_effect",
+      "label": "t:sections.image_compare.blocks.image.settings.graphics.filter_effect.label",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "blur", "label": "Blur" },
+        { "value": "brightness", "label": "Brightness" },
+        { "value": "contrast", "label": "Contrast" },
+        { "value": "grayscale", "label": "Grayscale" },
+        { "value": "invert", "label": "Invert" },
+        { "value": "saturate", "label": "Saturate" },
+        { "value": "sepia", "label": "Sepia" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "filter_amount",
+      "label": "t:sections.image_compare.blocks.image.settings.graphics.filter_amount.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "color_overlay",
+      "label": "t:shared.settings.overlay.overlay.label",
+      "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "color_overlay_gradient",
+      "label": "t:shared.settings.overlay.overlay_gradient.label"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:shared.settings.overlay.overlay_opacity.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:shared.settings.section_style.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:shared.settings.section_style.enable_animation.label",
+      "default": true,
+      "info": "t:shared.settings.section_style.enable_animation.info"
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "t:shared.settings.section_style.divider_style.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:shared.settings.section_style.divider_style.options.none"
+        },
+        {
+          "value": "solid",
+          "label": "t:shared.settings.section_style.divider_style.options.solid"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "t:shared.settings.section_style.section_padding.label",
+      "options": [
+        {
+          "value": "section--vertical-padding-none",
+          "label": "t:shared.settings.section_style.section_padding.options.none"
+        },
+        {
+          "value": "section--vertical-padding-top-bottom",
+          "label": "t:shared.settings.section_style.section_padding.options.both"
+        },
+        {
+          "value": "section--vertical-padding-top-only",
+          "label": "t:shared.settings.section_style.section_padding.options.top"
+        },
+        {
+          "value": "section--vertical-padding-bottom-only",
+          "label": "t:shared.settings.section_style.section_padding.options.bottom"
+        }
+      ],
+      "default": "section--vertical-padding-top-bottom"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Image Compare"
+    }
+  ]
+}
+{% endschema %}

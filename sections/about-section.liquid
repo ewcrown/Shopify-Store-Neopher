@@ -1,0 +1,377 @@
+<style>
+  .about-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    --heading-font: {{ settings.type_header_family.family }}, {{ settings.type_header_family.fallback_families }};
+    --body-font: {{ settings.type_body_family.family }}, {{ settings.type_body_family.fallback_families }};
+  }
+
+  .about-wrapper-{{ section.id }} {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: {{ section.settings.vertical_alignment }};
+    gap: {{ section.settings.gap }}px;
+    max-width: {% if section.settings.full_width %}100%{% else %}{{ section.settings.container_width }}px{% endif %};
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-direction: {% if section.settings.layout == 'right' %}row-reverse{% else %}row{% endif %};
+  }
+
+  .about-content-{{ section.id }} {
+    flex: 1 1 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: {{ section.settings.text_alignment }};
+    align-items: {% if section.settings.text_alignment == 'center' %}center{% elsif section.settings.text_alignment == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+
+  .about-heading-{{ section.id }} {
+    margin: 0 0 15px 0;
+    font-family: var(--heading-font);
+    font-weight: {{ settings.type_header_family.weight }};
+    font-size: {{ section.settings.heading_size }}px;
+    color: {{ section.settings.heading_color }};
+    letter-spacing: {{ section.settings.heading_letter_spacing | divided_by: 100.0 }}em;
+    line-height: 1.2;
+    text-transform: {{ section.settings.heading_transform }};
+  }
+
+  .about-text-{{ section.id }} {
+    margin: 0 0 25px 0;
+    font-family: var(--body-font);
+    font-size: {{ section.settings.text_size }}px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.6;
+    max-width: {{ section.settings.content_max_width }}px;
+  }
+
+  .about-btn-{{ section.id }} {
+    display: inline-block;
+    padding: {{ section.settings.btn_padding_v }}px {{ section.settings.btn_padding_h }}px;
+    text-decoration: none;
+    border-radius: {{ section.settings.btn_radius }}px;
+    font-family: var(--body-font);
+    font-weight: bold;
+    background-color: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_text_color }};
+    transition: all 0.3s ease;
+    border: 1px solid {{ section.settings.btn_bg_color }};
+  }
+
+  .about-btn-{{ section.id }}:hover {
+    background-color: transparent;
+    color: {{ section.settings.btn_bg_color }};
+  }
+
+  .about-media-{{ section.id }} {
+    flex: 1 1 400px;
+  }
+
+  .about-media-inner-{{ section.id }} video, 
+  .about-media-inner-{{ section.id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ section.settings.media_radius }}px;
+    box-shadow: {{ section.settings.media_shadow }};
+  }
+
+  @media (max-width: 767px) {
+    .about-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+    .about-media-{{ section.id }} {
+      flex: 1 1 auto;
+    }
+    .about-wrapper-{{ section.id }} {
+      flex-direction: column !important;
+      gap: 30px;
+    }
+    .about-heading-{{ section.id }} {
+      font-size: {{ section.settings.heading_size_mobile }}px;
+    }
+    .about-content-{{ section.id }} {
+      text-align: {{ section.settings.mobile_text_alignment }};
+      flex:1 1 auto;
+      align-items: {% if section.settings.mobile_text_alignment == 'center' %}center{% elsif section.settings.mobile_text_alignment == 'right' %}flex-end{% else %}flex-start{% endif %};
+    }
+  }
+</style>
+
+<section class="about-section-{{ section.id }}">
+  <div class="about-wrapper-{{ section.id }}">
+    
+    <div class="about-content-{{ section.id }}">
+      {% if section.settings.heading != blank %}
+        <h2 class="about-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="about-text-{{ section.id }}">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+      
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link }}" class="about-btn-{{ section.id }}">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_media %}
+      <div class="about-media-{{ section.id }}">
+        <div class="about-media-inner-{{ section.id }}">
+          {% if section.settings.video_url != blank %}
+            {{ section.settings.video_url | video_tag: autoplay: true, loop: true, muted: true, controls: true }}
+          {% elsif section.settings.image != blank %}
+            {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+          {% else %}
+             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Desktop Media Position",
+      "options": [
+        { "value": "left", "label": "Text Left / Media Right" },
+        { "value": "right", "label": "Media Left / Text Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap Between Columns",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "About Our Brand"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 80,
+      "label": "Desktop Heading Size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 18,
+      "max": 50,
+      "label": "Mobile Heading Size",
+      "default": 28
+    },
+    {
+        "type": "select",
+        "id": "heading_transform",
+        "label": "Heading Case",
+        "options": [
+            { "value": "none", "label": "Normal" },
+            { "value": "uppercase", "label": "Uppercase" },
+            { "value": "capitalize", "label": "Capitalize" }
+        ],
+        "default": "none"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add your storytelling text here.</p>"
+    },
+    {
+        "type": "range",
+        "id": "content_max_width",
+        "min": 300,
+        "max": 800,
+        "step": 10,
+        "label": "Text Max Width",
+        "default": 600
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Desktop Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Mobile Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link"
+    },
+    {
+        "type": "range",
+        "id": "btn_radius",
+        "min": 0,
+        "max": 50,
+        "label": "Button Corner Radius",
+        "default": 4
+    },
+    {
+        "type": "range",
+        "id": "btn_padding_v",
+        "min": 5,
+        "max": 30,
+        "label": "Button Vertical Padding",
+        "default": 12
+    },
+    {
+        "type": "range",
+        "id": "btn_padding_h",
+        "min": 10,
+        "max": 60,
+        "label": "Button Horizontal Padding",
+        "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_media",
+      "label": "Show Media",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_url",
+      "label": "Video"
+    },
+    {
+        "type": "range",
+        "id": "media_radius",
+        "min": 0,
+        "max": 100,
+        "label": "Media Corner Radius",
+        "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Desktop Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Mobile Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Mobile Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Mobile Padding Bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Section"
+    }
+  ]
+}
+{% endschema %}

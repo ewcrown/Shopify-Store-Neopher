@@ -1,0 +1,783 @@
+{% comment %} {%- liquid
+  # 1. Get the routine metaobject from the product metafield
+  assign routine_metaobject = product.metafields.custom.skincare_routine.value
+
+  # 2. Check if the routine exists and has steps. If not, stop rendering.
+  if routine_metaobject == blank or routine_metaobject.steps.value == blank
+    # This stops the rest of the file from running, effectively hiding the section.
+    break
+  endif
+
+  # 3. Get the list of step metaobjects
+  assign routine_steps = routine_metaobject.steps.value
+
+  assign section_id = 'sbs-' | append: section.id
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="step-by-step-routine"
+  style="
+    --sbs-bg: {{ section.settings.background_color }};
+    --sbs-text-color: {{ section.settings.text_color }};
+    --sbs-heading-color: {{ section.settings.heading_color }};
+    --sbs-card-gap: {{ section.settings.card_gap }}px;
+  "
+>
+  <div class="sbs-routine__inner">
+    {%- comment -%} ── Section Header ── {%- endcomment -%}
+    <div class="sbs-routine__header">
+      <div class="sbs-routine__header-left">
+        {%- if section.settings.heading != blank -%}
+          <{{ section.settings.heading_tag }} class="sbs-routine__heading ff-heading fs-heading-3-base">
+            {{ section.settings.heading }}
+          </{{ section.settings.heading_tag }}>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.link_text != blank and section.settings.link_url != blank -%}
+        <div class="sbs-routine__header-right">
+          <a href="{{ section.settings.link_url }}" class="sbs-routine__view-all ff-body fs-body-100">
+            {{ section.settings.link_text }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── Slider Content ── {%- endcomment -%}
+    <div class="sbs-routine__carousel-wrap">
+      <!-- IMPORTANT: Added 'swiper-container' class here for better CSS control -->
+      <div class="sbs-routine__swiper swiper swiper-container">
+        <div class="swiper-wrapper">
+          {%- for step_entry in routine_steps -%}
+            <div class="swiper-slide sbs-routine__slide">
+              <div class="sbs-card">
+                <div class="sbs-card__image-container">
+                  {%- if step_entry.image != blank -%}
+                    {{ step_entry.image | image_url: width: 800 | image_tag:
+                      loading: 'lazy',
+                      class: 'sbs-card__image'
+                    }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg sbs-card__image-placeholder' }}
+                  {%- endif -%}
+                </div>
+                <div class="sbs-card__content">
+                  <h4 class="sbs-card__heading ff-heading fs-body-100">{{ step_entry.heading }}</h4>
+                  <div class="sbs-card__text ff-body fs-body-75 rte">{{ step_entry.text | metafield_tag }}</div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- comment -%} Navigation Arrows (Bottom Right) {%- endcomment -%}
+      {%- if routine_steps.size > 1 -%}
+      <div class="sbs-routine__controls">
+        <button type="button" class="sbs-arrow sbs-arrow--prev" aria-label="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="sbs-arrow sbs-arrow--next" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  #{{ section_id }} {
+    background-color: var(--sbs-bg);
+    color: var(--sbs-text-color);
+  }
+  .sbs-routine__inner {
+    max-width: var(--page-width, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--page-gutter, 20px);
+  }
+  .sbs-routine__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+  .sbs-routine__heading {
+    color: var(--sbs-heading-color);
+    margin: 0;
+  }
+  .sbs-routine__view-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--sbs-heading-color);
+    transition: opacity 0.2s;
+  }
+  .sbs-routine__view-all:hover { opacity: 0.7; }
+
+  .sbs-routine__carousel-wrap {
+    position: relative;
+    padding-bottom: 50px; /* Increased slightly for better spacing */
+  }
+
+  /* --- CSS FIX 1: Hide overflow --- */
+  /* We remove 'overflow: visible' and ensure the container hides anything outside it */
+  .sbs-routine__swiper {
+    overflow: hidden; 
+    padding-bottom: 20px; /* Add padding bottom so shadows don't get cut off */
+  }
+
+  /* Card Styling */
+  .sbs-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* Ensure the card itself doesn't overflow */
+    overflow: hidden; 
+  }
+  .sbs-card__image-container {
+    position: relative;
+    padding-top: 110%; 
+    overflow: hidden;
+    border-radius: 20px;
+    background: #f8f8f8;
+    margin-bottom: 15px;
+    /* Fix for safari border-radius overflow */
+    transform: translateZ(0);
+  }
+  .sbs-card__image, .sbs-card__image-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  /* Hover effect only on desktop to prevent sticky hover on mobile */
+  @media (min-width: 768px) {
+      .sbs-card:hover .sbs-card__image {
+        transform: scale(1.05);
+      }
+  }
+
+  .sbs-card__heading {
+    color: var(--sbs-heading-color);
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    padding-left: 4px; /* Slight alignment adjustment */
+  }
+  .sbs-card__text {
+    opacity: 0.8;
+    line-height: 1.5;
+    padding-left: 4px; /* Slight alignment adjustment */
+  }
+
+  /* Controls (Bottom Right) */
+  .sbs-routine__controls {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+  }
+  .sbs-arrow {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #222;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .sbs-arrow:hover {
+    background: #4E95C7;
+    color: #fff;
+    border-color: #4E95C7;
+  }
+  .sbs-arrow--prev { }
+  .sbs-arrow--next {
+    background: #4E95C7;
+    color: #fff;
+    border-color: #4E95C7;
+  }
+  .sbs-arrow--next:hover { opacity: 0.9; }
+
+  /* Disable arrows if they are disabled by Swiper */
+  .sbs-arrow.swiper-button-disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    .sbs-routine__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .sbs-routine__carousel-wrap{
+      padding:0px;
+    }
+    .sbs-routine__controls{
+      display:none;
+    }
+    .sbs-routine__swiper{
+      padding-bottom:0px;
+    }
+    .sbs-routine__header-right { align-self: flex-end; }
+    /* On mobile, center the controls */
+    .sbs-routine__controls {
+        right: 50%;
+        transform: translateX(50%);
+    }
+  }
+</style>
+
+<script>
+(function() {
+  function initSBS(section) {
+    const swiperEl = section.querySelector('.sbs-routine__swiper');
+    if (!swiperEl) return;
+
+    const initSwiper = (module) => {
+      const { Swiper, Navigation } = module;
+      new Swiper(swiperEl, {
+        modules: [Navigation],
+        /* --- JS FIX 2: Use whole numbers for slidesPerView --- */
+        slidesPerView: 2, // Mobile: Show exactly 1
+        spaceBetween: 20, // Gap between slides
+        grabCursor: true,
+        navigation: {
+          prevEl: section.querySelector('.sbs-arrow--prev'),
+          nextEl: section.querySelector('.sbs-arrow--next'),
+        },
+        breakpoints: {
+          // Tablet (small): Show exactly 2
+          550: { slidesPerView: 2, spaceBetween: 20 },
+          // Tablet (large): Show exactly 3
+          850: { slidesPerView: 3, spaceBetween: 24 },
+          // Desktop: Show exactly 4
+          1100: { slidesPerView: 4, spaceBetween: 30 }
+        }
+      });
+    };
+
+    if (window.flu && flu.chunks && flu.chunks.swiper) {
+      import(flu.chunks.swiper).then(initSwiper);
+    } else if (window.Swiper) {
+       initSwiper({ 
+         Swiper: window.Swiper, 
+         Navigation: window.Navigation
+       });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-section-type="step-by-step-routine"]').forEach(initSBS);
+  });
+
+  document.addEventListener('shopify:section:load', (e) => {
+    if (e.target.dataset.sectionType === 'step-by-step-routine') initSBS(e.target);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Step-by-step",
+  "tag": "section",
+  "class": "sbs-routine-wrap",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Visibility"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section will only appear if the product has a 'Skincare Routine' metaobject assigned."
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Step-by-step Skincare Routine"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading Tag",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "Section Padding",
+      "options": [
+        { "value": "section--vertical-padding-none", "label": "None" },
+        { "value": "section--vertical-padding-top-bottom", "label": "Top & Bottom" }
+      ],
+      "default": "section--vertical-padding-top-bottom"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Step-by-step Routine"
+    }
+  ]
+}
+{% endschema %} {% endcomment %}
+ {%- liquid
+  assign section_id = 'sbs-' | append: section.id
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="step-by-step-routine"
+  style="
+    --sbs-bg: {{ section.settings.background_color }};
+    --sbs-text-color: {{ section.settings.text_color }};
+    --sbs-heading-color: {{ section.settings.heading_color }};
+    --sbs-card-gap: {{ section.settings.card_gap }}px;
+  "
+>
+  <div class="sbs-routine__inner">
+    
+    <div class="sbs-routine__header">
+      <div class="sbs-routine__header-left">
+        {%- if section.settings.heading != blank -%}
+          <{{ section.settings.heading_tag }} class="sbs-routine__heading ff-heading fs-heading-3-base">
+            {{ section.settings.heading }}
+          </{{ section.settings.heading_tag }}>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.link_text != blank and section.settings.link_url != blank -%}
+        <div class="sbs-routine__header-right">
+          <a href="{{ section.settings.link_url }}" class="sbs-routine__view-all ff-body fs-body-100">
+            {{ section.settings.link_text }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="sbs-routine__carousel-wrap">
+      <div class="sbs-routine__swiper swiper swiper-container">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide sbs-routine__slide" {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="sbs-card sbs-card--link">
+              {%- else -%}
+                <div class="sbs-card">
+              {%- endif -%}
+
+                <div class="sbs-card__image-container">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 800 | image_tag:
+                      loading: 'lazy',
+                      class: 'sbs-card__image'
+                    }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg sbs-card__image-placeholder' }}
+                  {%- endif -%}
+                </div>
+                
+                <div class="sbs-card__content">
+                  {%- if block.settings.title != blank -%}
+                    <h4 class="sbs-card__heading ff-heading fs-body-100">{{ block.settings.title }}</h4>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="sbs-card__text ff-body fs-body-75 rte">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+              
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+      <div class="sbs-routine__controls">
+        <button type="button" class="sbs-arrow sbs-arrow--prev" aria-label="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="sbs-arrow sbs-arrow--next" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  #{{ section_id }} {
+    background-color: var(--sbs-bg);
+    color: var(--sbs-text-color);
+  }
+  .sbs-routine__inner {
+    max-width: var(--page-width, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--page-gutter, 20px);
+  }
+  .sbs-routine__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+  .sbs-routine__heading {
+    color: var(--sbs-heading-color);
+    margin: 0;
+  }
+  .sbs-routine__view-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--sbs-heading-color);
+    transition: opacity 0.2s;
+  }
+  .sbs-routine__view-all:hover { opacity: 0.7; }
+
+  .sbs-routine__carousel-wrap {
+    position: relative;
+    padding-bottom: 50px;
+  }
+
+  .sbs-routine__swiper {
+    overflow: hidden; 
+    padding-bottom: 20px;
+  }
+
+  .sbs-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .sbs-card--link { cursor: pointer; }
+
+  .sbs-card__image-container {
+    position: relative;
+    padding-top: 110%; 
+    overflow: hidden;
+    border-radius: 20px;
+    background: #f8f8f8;
+    margin-bottom: 15px;
+    transform: translateZ(0);
+  }
+  .sbs-card__image {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  @media (min-width: 768px) {
+    .sbs-card:hover .sbs-card__image {
+      transform: scale(1.05);
+    }
+  }
+
+  .sbs-card__heading {
+    color: var(--sbs-heading-color);
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+  .sbs-card__text {
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+
+  .sbs-routine__controls {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+  }
+  .sbs-arrow {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #222;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .sbs-arrow:hover {
+    background: #4E95C7;
+    color: #fff;
+  }
+  .sbs-arrow--next {
+    background: #4E95C7;
+    color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .sbs-routine__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .sbs-routine__carousel-wrap {
+      padding:0px;
+    }
+    .sbs-routine__controls { display: none; }
+  }
+</style>
+
+<script>
+(function() {
+  function initSBS(section) {
+    const swiperEl = section.querySelector('.sbs-routine__swiper');
+    if (!swiperEl) return;
+
+    const initSwiper = (module) => {
+      const { Swiper, Navigation } = module;
+      new Swiper(swiperEl, {
+        modules: [Navigation],
+        slidesPerView: 2, 
+        spaceBetween: 20, 
+        grabCursor: true,
+        navigation: {
+          prevEl: section.querySelector('.sbs-arrow--prev'),
+          nextEl: section.querySelector('.sbs-arrow--next'),
+        },
+        breakpoints: {
+          550: { slidesPerView: 2, spaceBetween: 20 },
+          850: { slidesPerView: 3, spaceBetween: 24 },
+          1100: { slidesPerView: 4, spaceBetween: 30 }
+        }
+      });
+    };
+
+    if (window.flu && flu.chunks && flu.chunks.swiper) {
+      import(flu.chunks.swiper).then(initSwiper);
+    } else if (window.Swiper) {
+       initSwiper({ Swiper: window.Swiper, Navigation: window.Navigation });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-section-type="step-by-step-routine"]').forEach(initSBS);
+  });
+
+  document.addEventListener('shopify:section:load', (e) => {
+    if (e.target.dataset.sectionType === 'step-by-step-routine') initSBS(e.target);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Step-by-step Routine",
+  "tag": "section",
+  "class": "sbs-routine-wrap",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Step-by-step Routine"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading Tag",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Header Link Text",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Header Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Style & Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Routine Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Step 01"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Step Description",
+          "default": "<p>Explain the process of this specific step.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Step Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Step-by-step Routine",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

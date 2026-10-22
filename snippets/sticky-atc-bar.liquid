@@ -1,0 +1,327 @@
+{%- comment -%}
+  Renders the sticky add to cart bar on the product page.
+  Must be rendered within a product form.
+
+  Required parameters:
+
+  * local_settings: { Object } The bar's settings, taken from the buy button block on the product page.
+  * prod: { Object } The product to render with.
+  * current_variant: { Object } The selected_or_first_available_variant of the product.
+  * featured_media: { Object } The initial media shown.
+  * aspect_ratio: { String } The value which determines the aspect ratio of the media.
+  * price_content_type: { String } "price" or "custom" or "hide" after checking both $0 and sold out pricing display settings
+  * custom_price_content: { String } The translation to populate price if sold out or free, depending on logic checks and settings
+{%- endcomment -%}
+
+{%- liquid
+  assign product_available_label = 'products.product.add_to_cart' | t
+  assign product_unavailable_label = 'products.product.sold_out' | t
+
+  if template.suffix == 'preorder'
+    assign product_available_label = 'products.product.preorder' | t
+  endif
+
+  capture options_csl
+    for option in current_variant.options
+      echo option
+      unless forloop.last
+        echo ', '
+      endunless
+    endfor
+  endcapture
+-%}
+
+<div
+  class="sticky-atc-bar hidden"
+  {{ divider_style }}
+  data-divider-style="{{ local_settings.divider_width }}"
+  data-show-desktop="{{ local_settings.enable_sticky_atc_bar_desktop }}"
+  data-show-mobile="{{ local_settings.enable_sticky_atc_bar_mobile }}"
+>
+  <div class="sticky-atc-bar__inner">
+    <div class="sticky-atc-bar__details">
+
+      <div class="sticky-atc-bar__media product__media">
+        {%- for media in prod.media -%}
+          <div
+            class="product__media-item {% unless media.id == featured_media.id %} hidden{% endunless %}"
+            data-media-item-id="{{ media.id }}"
+            data-media-type="{{ media.media_type }}"
+            data-product-media-wrapper
+          >
+            {% render 'image',
+              image: media,
+              id: media.id,
+              wrapper_class: 'sticky-atc-bar__image',
+              aspect_ratio: aspect_ratio
+            %}
+          </div>
+        {% endfor -%}
+      </div>
+
+      <div class="sticky-atc-bar__meta">
+        <h5 class="ff-heading fs-heading-5-base">{{ prod.title }}</h5>
+
+        {%- unless prod.has_only_default_variant %}
+          <span class="sticky-atc-bar__meta-options fs-body-75 t-opacity-60">{{ options_csl }}</span>
+          <button
+            type="button"
+            class="sticky-atc-bar__meta-change-option-trigger fs-body-75"
+            data-change-option-trigger
+          >
+            {{ 'products.product.change_option' | t }}
+          </button>
+        {% endunless %}
+      </div>
+
+      <div class="sticky-atc-bar__price product__price fs-body-100">
+        {%- if prod != blank -%}
+          <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+          <s class="t-subdued" data-compare-price>
+            {%- if price_content_type == 'price' and current_variant.compare_at_price > current_variant.price -%}
+              {{- current_variant.compare_at_price | money -}}
+            {%- endif -%}
+          </s>
+          <span data-price>
+            {% if price_content_type == 'price' %}
+              {{ current_variant.price | money }}
+            {%- elsif price_content_type == 'custom' -%}
+              {{- custom_price_content }}
+            {% endif %}
+          </span>
+        {%- else -%}
+          <span>{{ 9999 | money }}</span>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+    <div class="sticky-atc-bar__button">
+
+      {%- comment -%} Quantity Selector {%- endcomment -%}
+      <div class="sticky-atc-qty" data-sticky-qty-wrap>
+        <button
+          type="button"
+          class="sticky-atc-qty__btn sticky-atc-qty__btn--minus"
+          aria-label="Decrease quantity"
+          data-sticky-qty-minus
+        >−</button>
+        <input
+          type="number"
+          name="quantity"
+          id="sticky-qty-{{ prod.id }}"
+          class="sticky-atc-qty__input"
+          value="1"
+          min="1"
+          aria-label="Quantity"
+          data-sticky-qty-input
+          readonly
+        >
+        <button
+          type="button"
+          class="sticky-atc-qty__btn sticky-atc-qty__btn--plus"
+          aria-label="Increase quantity"
+          data-sticky-qty-plus
+        >+</button>
+      </div>
+
+      <button
+        type="submit"
+        name="add"
+        {% unless current_variant.available %}
+          aria-disabled="true" disabled
+        {% endunless %}
+        aria-label="{% unless current_variant.available %}{{ product_unavailable_label }}{% else %}{{ product_available_label }}{% endunless %}"
+        class="product-form__cart-submit btn btn--medium btn--full btn--primary"
+        data-add-to-cart
+        data-lang-available="{{ product_available_label }}"
+        data-lang-unavailable="{{ 'product.unavailable' | t }}"
+        data-lang-sold-out="{{ 'product.sold_out' | t }}"
+      >
+        <span data-add-to-cart-text>
+          {%- unless current_variant.available -%}
+            {{ product_unavailable_label }}
+          {%- else -%}
+            {{ product_available_label }}
+          {%- endunless -%}
+        </span>
+
+        <div class="btn__loading-wrap">
+          <div class="btn__loading-bar"></div>
+        </div>
+
+        {% render 'icon', icon: 'checkmark' %}
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ── Sticky ATC Quantity ── */
+  .sticky-atc-bar__button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .sticky-atc-qty {
+    display: flex;
+    align-items: stretch;
+    height: 40px;
+    border: 1px solid #e1e1e1!important;
+    border-radius: 40px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: transparent;
+  }
+
+  .sticky-atc-qty__btn {
+    width: 34px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: currentColor;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .sticky-atc-qty__btn:hover {
+    background: rgba(var(--color-border), 0.12);
+  }
+
+  .sticky-atc-qty__btn:active {
+    background: rgba(var(--color-border), 0.22);
+  }
+
+  .sticky-atc-qty__input {
+    width: 38px;
+    height: 100%;
+    border: none;
+    border-left: 1px solid rgba(var(--color-border), 0.6);
+    border-right: 1px solid rgba(var(--color-border), 0.6);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    background: transparent;
+    color: currentColor;
+    padding: 0;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    cursor: default;
+  }
+
+  .sticky-atc-qty__input::-webkit-outer-spin-button,
+  .sticky-atc-qty__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 749px) {
+    .sticky-atc-qty {
+      height: 36px;
+    }
+    .sticky-atc-qty__btn {
+      width: 30px;
+      font-size: 16px;
+    }
+    .sticky-atc-qty__input {
+      width: 32px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  function initStickyQty() {
+    var bar = document.querySelector('.sticky-atc-bar');
+    if (!bar) return;
+
+    var minusBtn = bar.querySelector('[data-sticky-qty-minus]');
+    var plusBtn  = bar.querySelector('[data-sticky-qty-plus]');
+    var input    = bar.querySelector('[data-sticky-qty-input]');
+
+    if (!minusBtn || !plusBtn || !input) return;
+
+    /* Prevent double-init */
+    if (input.dataset.init === 'true') return;
+    input.dataset.init = 'true';
+
+    function getVal() {
+      return parseInt(input.value, 10) || 1;
+    }
+
+    function setVal(v) {
+      input.value = Math.max(1, v);
+    }
+
+    minusBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      setVal(getVal() - 1);
+    });
+
+    plusBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      setVal(getVal() + 1);
+    });
+
+    /*
+     * Stiletto ke product form mein already ek quantity input hota hai
+     * (main form wala). Jab sticky ATC submit hota hai toh Stiletto
+     * apna quantity value us hidden input se leta hai.
+     *
+     * Is liye hum sticky qty change hone pe main form ka
+     * quantity input bhi sync karte hain — yahi sahi tarika hai.
+     */
+    function syncMainFormQty() {
+      var mainQtyInput = document.querySelector(
+        '.product-form__quantity input[name="quantity"], ' +
+        '.quantity-input__input, ' +
+        'form[action="/cart/add"] input[name="quantity"]'
+      );
+      if (mainQtyInput) {
+        mainQtyInput.value = getVal();
+        /* Stiletto ke JS ko aware karo — change event fire karo */
+        mainQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    /* Sync on every +/- click */
+    minusBtn.addEventListener('click', syncMainFormQty);
+    plusBtn.addEventListener('click', syncMainFormQty);
+
+    /* Agar main form ka qty change ho toh sticky bhi sync karo */
+    var mainQty = document.querySelector(
+      '.product-form__quantity input[name="quantity"], ' +
+      '.quantity-input__input, ' +
+      'form[action="/cart/add"] input[name="quantity"]'
+    );
+    if (mainQty) {
+      mainQty.addEventListener('change', function () {
+        var v = parseInt(mainQty.value, 10);
+        if (!isNaN(v) && v >= 1) setVal(v);
+      });
+    }
+  }
+
+  /* Boot */
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', initStickyQty)
+    : initStickyQty();
+
+  document.addEventListener('shopify:section:load', initStickyQty);
+})();
+</script>

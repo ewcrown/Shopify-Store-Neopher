@@ -1,0 +1,16 @@
+{%- liquid
+  assign avg_rating = prod.metafields.loox.avg_rating | plus: 0 | round: 1
+  assign num_reviews = prod.metafields.loox.num_reviews | plus: 0
+-%}
+{%- if num_reviews > 0 -%}
+  <div class="product-rating {{ variant }}">
+    <div class="product-rating__stars">
+      <div
+        class="loox-rating"
+        data-id="{{ prod.id }}"
+        data-rating="{{ avg_rating }}"
+        data-raters="{{ num_reviews }}"
+      ></div>
+    </div>
+  </div>
+{%- endif -%}
