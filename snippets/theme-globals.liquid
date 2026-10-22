@@ -17,9 +17,9 @@
 {% assign useUnminThemeJS = false %}
 
 {% if useUnminThemeJS %}
-  <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+  <script type="module" src="{{ 'theme.js' | asset_url }}" defer></script>
 {% else %}
-  <script type="module" src="{{ 'theme.min.js' | asset_url }}"></script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
 {% endif %}
 
 {% # Set the following line to true to import custom-events.js %}
@@ -46,8 +46,17 @@
   defineVH();
 </script>
 
-{{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+<link
+  rel="preload"
+  href="{{ 'theme.min.css' | asset_url }}"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+>
+<noscript>
+  {{ 'theme.min.css' | asset_url | stylesheet_tag }}
+</noscript>
+{% comment %} {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }} {% endcomment %}
 
-{% if useCustomCSS %}
+{% comment %} {% if useCustomCSS %}
   {{ 'custom.css' | asset_url | stylesheet_tag: preload: true }}
-{% endif %}
+{% endif %} {% endcomment %}

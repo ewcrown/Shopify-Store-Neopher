@@ -64,17 +64,39 @@
     {%- endcapture -%}
     <title>{{ seo_title | strip }}</title>
 
+        
+    <link
+      rel="preload"
+      href="{{ 'custom.min.css' | asset_url }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+    <noscript>
+      {{ 'custom.min.css' | asset_url | stylesheet_tag }}
+    </noscript>
+    {% comment %} {{ 'custom.css' | asset_url | stylesheet_tag }} {% endcomment %}
+          <link
+    rel="preload"
+    fetchpriority="low"
+    href="{{ 'theme-deferred.css' | asset_url }}"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  >
+  <noscript><link rel="stylesheet" href="{{ 'theme-deferred.css' | asset_url }}"></noscript>
+
     {% render 'social-meta-tags' %}
 
     {% render 'theme-setup' %}
     {% render 'theme-setting-vars' %}
     {%- render 'theme-globals' -%}
 
+
+
     {{ content_for_header }}
-    {{ 'custom.css' | asset_url | stylesheet_tag }}
+
   </head>
 
-  <body class="template-{{ request.page_type | handle }}">
+<body class="template-{{ request.page_type | handle }}">
     <div class="page">
       {% if settings.enable_page_transitions %}
         {% render 'page-transition-overlay' %}
@@ -147,12 +169,5 @@
   }
 </script>
   </body>
-  <link
-    rel="preload"
-    fetchpriority="low"
-    href="{{ 'theme-deferred.css' | asset_url }}"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  >
-  <noscript><link rel="stylesheet" href="{{ 'theme-deferred.css' | asset_url }}"></noscript>
+
 </html>
